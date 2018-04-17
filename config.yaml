@@ -1,0 +1,3 @@
+mount: /Users/uptim/Documents/GitHub/topseed-nbake/play
+secret: 123
+port: 3000
