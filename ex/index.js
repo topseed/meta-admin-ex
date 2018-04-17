@@ -11,9 +11,8 @@ let b = new Base_1.NBake();
 console.log(b.ver());
 let config = yaml.load(fs.readFileSync('config.yaml'));
 console.log(config);
-const ROOT = '/Users/uptim/Documents/GitHub/topseed-nbake/play/';
 function bake(dir) {
-    let folder = ROOT + dir;
+    let folder = config.mount + '/' + dir;
     const start = new Date();
     console.log('Baking ' + folder);
     let d = new Base_1.Dirs(folder);
@@ -27,7 +26,7 @@ function bake(dir) {
     return msg;
 }
 function itemize(dir) {
-    let folder = ROOT + dir;
+    let folder = config.mount + '/' + dir;
     const start = new Date();
     const i = new Base_1.Items(folder);
     let msg = i.itemize();
@@ -35,6 +34,6 @@ function itemize(dir) {
 }
 function readStartProps() {
 }
-const srv = new Base_1.Srv(bake, itemize, {});
+const srv = new Base_1.Srv(bake, itemize, config);
 srv.s();
 srv.start();

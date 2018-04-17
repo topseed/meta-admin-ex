@@ -1,8 +1,30 @@
 {
-		"dependencies": {
-				"nbake": ">=2.4.18",
-				"express": "^4.16.3",
-				"formidable": "^1.2.1",
-				"image-downloader": "^3.3.0"
-		}
+	"name": "nbake-admin",
+	"version": "1.04.018",
+	"description": "nbake admin & api",
+	"main": "index.js",
+	"bin": {
+		"nbake-admin": "index.js",
+		"nbake-admin-cli": "index.js"
+	},
+	"license": "GPL3",
+	"author": "http://github.com/topseed/admin",
+	"bugs": "http://github.com/topseed/admin",
+	"homepage": "http://github.com/topseed/admin",
+	"repository": {
+		"type": "git",
+		"url": "http://github.com/topseed/admin"
+	},
+	"keywords": [
+		"nbake"
+	],
+	"engines": {
+		"node": ">=8.10"
+	},
+	"dependencies": {
+		"nbake": ">=2.4.18",
+		"express": "^4.16.3",
+		"formidable": "^1.2.1",
+		"image-downloader": "^3.3.0"
+	}
 }
