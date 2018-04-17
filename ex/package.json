@@ -1,6 +1,6 @@
 {
 		"dependencies": {
-				"nbake": "^1.4.25",
+				"nbake": ">=2.4.18",
 				"express": "^4.16.3",
 				"formidable": "^1.2.1",
 				"image-downloader": "^3.3.0"

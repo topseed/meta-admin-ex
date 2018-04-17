@@ -9,6 +9,8 @@ const logger = require('tracer').console();
 const yaml = require('js-yaml');
 let b = new Base_1.NBake();
 console.log(b.ver());
+let config = yaml.load(fs.readFileSync('config.yaml'));
+console.log(config);
 const ROOT = '/Users/uptim/Documents/GitHub/topseed-nbake/play/';
 function bake(dir) {
     let folder = ROOT + dir;
