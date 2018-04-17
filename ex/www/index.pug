@@ -1,0 +1,19 @@
+head
+
+body
+
+
+	form(action='/upload', enctype='multipart/form-data', method='post')
+		p Folder:
+		input(type='text', name='folder')
+		p
+		input(type='file', name='upload', multiple='multiple')
+		p
+		input(type='submit', value='Upload')
+
+
+	p buttons
+	p.
+		bake all
+		bake item
+		bake items json

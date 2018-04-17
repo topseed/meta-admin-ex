@@ -1,2 +1,7 @@
 # admin
-if you want to host an admin|api for a s3 site,  here it is
+
+Install this to admin, api, manage, etc your S3 website.
+
+install goofYs first, and mount your S3
+
+configure yaml to the mounted folder
