@@ -1,0 +1,21 @@
+
+p
+div
+	.ui.form
+		h4.ui.dividing.header Clone
+		.field
+			label Source
+			input(type='text', name='source', placeholder='page/one')
+		.field
+			label New PermaLink
+			input(type='text', name='target', placeholder='page/two')
+
+		#msgNB.ui.message.hidden
+
+		button.ui.button(type='submit') Clone
+
+
+script.
+	loadjs.ready('style', function () {
+		console.log('page 1 component script here')
+	})

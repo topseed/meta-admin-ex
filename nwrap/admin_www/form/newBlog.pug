@@ -1,0 +1,21 @@
+
+p
+div
+	.ui.form
+		h4.ui.dividing.header New Blog
+		.field
+			label Template
+			input(type='text', name='template', placeholder='template')
+		.field
+			label Permalink
+			input(type='text', name='permalink', placeholder='blog')
+		#msgNB.ui.message.hidden
+
+		button.ui.button(type='submit') Blog
+
+
+	script.
+		loadjs.ready('site', function () {
+			console.log('page 1 script here')
+		})
+
