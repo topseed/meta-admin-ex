@@ -1,0 +1,17 @@
+
+p
+div
+	.ui.form
+		h4.ui.dividing.header NBake
+		.field
+			label Folder
+			input(type='text', name='folder', placeholder='blog')
+		#msgNB.ui.message.hidden
+
+		button.ui.button(type='submit') Submit
+
+
+script.
+	loadjs.ready('style', function () {
+		console.log('page 1 component script here')
+	})

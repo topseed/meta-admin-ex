@@ -7,11 +7,13 @@ block head
 
 block main
 	p
+	br
+	p
 	.ui.text.container
-		include _pinc.pug
+		include i.pug
 
 	script.
-		loadjs.ready('style', function () {
+		loadjs.ready('site', function () {
 			console.log('page 1 script here')
 		})
 

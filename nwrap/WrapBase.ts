@@ -24,8 +24,7 @@ export class Srv {
 		Srv.itemize = itemize_
 		Srv.prop = prop_
 		this.app = express()
-		this.app.set('view engine', 'pug') // yes!
-		this.app.set('views', __dirname + '/www')
+		this.app.set('views', __dirname + '/admin_www')
 
 		//upload
 		this.app.get('/upload', function (req, res) {
@@ -149,5 +148,5 @@ export class Srv {
 
 
 module.exports = {
-	Srv	 
+	Srv
 }
