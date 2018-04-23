@@ -4,8 +4,10 @@ declare var process: any
 declare var console: Console
 declare var __dirname: any
 
-import { Meta, Dirs, Bake, Items, Tag, NBake, Srv } from 'nbake/lib/Base'
-const pug = require('pug')
+import { Meta, Dirs, Bake, Items, Tag, NBake } from 'nbake/lib/Base'
+
+import { Srv } from './lib/Base'
+
 const os = require('os')
 const fs = require('fs')
 const download = require('image-downloader') // for url
