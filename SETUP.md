@@ -28,14 +28,18 @@ This docker has node, goofys installed (and other things you may need)
 
 		cd root
 
+		//start PHP
 		nohup /root/bin/php-fpm &
+		(enter)
 
-		caddy
+		//start http IDE
+		caddy &
 
 
 Make a project in folder s3 (~/html/workspace/s3)
-Now goofYs, goofys YOUR-BUCKET-NAME MNT
+You'll need to know the project folder!!!!
 
+Now goofYs, goofys YOUR-BUCKET-NAME MNT
 
 		cat ~/.aws/credentials
 		[default]
@@ -46,16 +50,16 @@ Now goofYs, goofys YOUR-BUCKET-NAME MNT
 		aws_secret_access_key = SECRET2
 
 
-Start
+Start mount, use project folder
 
 		/root/goofys --profile default -o allow_other --use-content-type narwhal1 /var/www/html/workspace/kurac/s3
 
 
 Now Api
 
-npm i nbake-admin
+cd /root/nbake
 
-configure yaml to the mounted folder, ex config.yaml here
+configure yaml to the mounted folder
 
 pm2 start ~/node_modules/nbake-admin/index.js
 
