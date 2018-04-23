@@ -1,0 +1,83 @@
+{
+  "title": "My Feed",
+  "description": "very cool things",
+  "home_page_url": "http://example.com",
+  "version": 1,
+  "items": [
+    {
+      "id": "3d87815a-aa49-40e6-a2f9-f78c626029b8",
+      "external_url": "http://youtube.com/watch?v=wzAWI9h3q18",
+      "title": "Do you Even Pug (Jade) bro?",
+      "image": "/linkBlog/180401b_jade_bro/pug.jpg",
+      "content_text": "An introduction to Pug(Jade) by Google Designer Travis Neilson. We take an intro look at Jade (now called Pug v1 ), a templating language that is completely awesome and has changed my life.",
+      "author": "Travis Neilson",
+      "date_modified": 1522597131,
+      "tags": null,
+      "local_url": "180401b_jade_bro"
+    },
+    {
+      "id": "28713ee7-c49f-476e-a395-50b5e74ec5ee",
+      "external_ur": "http://awwwards.com/collections",
+      "title": "Web Design Trends",
+      "image": "/linkBlog/180401d_awwwards/aw.jpg",
+      "content_text": "The awards for design, creativity and innovation on the Internet. Awwwards are the Website Awards that recognize and promote the talent and effort of the best developers, designers and web agencies in the world.",
+      "author": "awwwards.com",
+      "date_modified": 1522597132,
+      "local_url": "180401d_awwwards"
+    },
+    {
+      "id": "211d6fcb-932a-48e0-81cb-e40a37c0f417",
+      "external_url": "http://twitter.com/chriscoyier",
+      "title": "Chris Coyier",
+      "image": "https://chriscoyier.net/wp-content/uploads/2017/06/IMG_8408-1024x1024.jpg",
+      "content_text": "A tought leader on front end web development. Co-founder of CodePen, a playground for front-end web development.",
+      "author": "chris coyier",
+      "date_modified": 1522799218,
+      "tags": null,
+      "local_url": "180403a_chriscoyier"
+    },
+    {
+      "id": "a31fc60c-1ca9-4b3a-84a3-86285a46f1cf",
+      "external_url": "http://tympanus.net/codrops/author/crnacura/",
+      "title": "Manoela",
+      "image": "https://s3.amazonaws.com/blog.psd2html.com/wp-content/uploads/2015/02/19140008/01_639x296_041.png",
+      "content_text": "ML is a freelance web designer and developer with a passion for interaction design.",
+      "author": "crna cura",
+      "date_modified": 1522799220,
+      "tags": null,
+      "local_url": "180403b_mary_lou"
+    },
+    {
+      "id": "f08e7360-d408-41f2-8c1b-12e80d6cf6c6",
+      "external_url": "http://www.webbyawards.com/winners/2017/websites/website-features-and-design/best-visual-design-aesthetic/",
+      "title": "WEBBY AWARDS IS AN INTERNATIONAL AWARD",
+      "image": "https://1z3fa82l1ypj1an7rx3zxeet-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/WebbyAwards_600x300.jpg",
+      "content_text": "The Webbys honors excellence in several major media types including Websites, Film & Video, Advertising, Media & PR, Social, Mobile Sites & Apps, Games, and Podcasts & Digital Audio.",
+      "author": "webbyawards",
+      "date_modified": 1522597134,
+      "tags": null,
+      "local_url": "180403c_webbyawards"
+    },
+    {
+      "id": "34d8c130-f22f-4045-94fa-5f2e00fc1f04",
+      "external_url": "https://twitter.com/fwa",
+      "title": "The FWA - showcasing innovation",
+      "image": "http://blog.publicisna.com/wp-content/uploads/2014/03/FWA.png",
+      "content_text": "FWA - showcasing innovation, with the mission is to showcase cutting edge creativity",
+      "author": "favorite website awards",
+      "date_modified": 1522597140,
+      "tags": null,
+      "local_url": "180403d_fwa"
+    },
+    {
+      "id": "cb42b345-c81c-46e1-826b-abc81fb39934",
+      "title": "The FWA - showcasing innovation",
+      "image": "http://upload.wikimedia.org/wikipedia/commons/5/53/Schema_Saeulenordnungen.jpg",
+      "content_text": "How to do sticky in a column.",
+      "author": "Vic",
+      "date_modified": 1523456235,
+      "tags": null,
+      "local_url": "article"
+    }
+  ]
+}

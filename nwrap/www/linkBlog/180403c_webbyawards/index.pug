@@ -1,0 +1,15 @@
+extends /plugin/_layout
+
+block head
+	title #{ title}
+
+block main
+	div
+		.ui
+			// * content
+			include ../_item
+
+		include /plugin/_footer
+
+	script.
+		console.log('pg')
