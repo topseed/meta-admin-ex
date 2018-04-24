@@ -1,22 +1,21 @@
 # admin
 
-For webmasters, install this to admin and build your S3 & markup(Pug) based webapp.
+For webmasters, install this to admin and build your S3 & markup(Pug) based webapp.  It lets you continously build the pug on your S3 hosted webapp.
 
 Pre-requsites: There is about a dozen S3 hosting corps, not just AWS, ex: Digital Ocean Spaces.
-You should have S3 key, secret and bucket-name (from your manager?) and tested
+Beforehand, you should have S3 host, key, secret and bucket-name (from your manager?) and tested
 the password work, ex: upload a sample via CyberDuck (FTP) - before you start the admin install.
-( check http://github.com/topseed/nbake-user )
+( Maybe check http://github.com/topseed/nbake-user first )
 
-If you know how to install LAMP, then you should be able to do this docker based install. It should take about an hour first time., here we go:
+If you know how to install LAMP, then you should be able to do this docker based install. It should take about an hour first time you do it, here we go:
 
-1. We need a host for Docker, there are two dozen hosting providers where you can install a Docker host.
-The Docker host should be very close to your development team due to IDE keystroke latency, the closer the better. Also, OK to have more than one. For example NYC and LA if you have two teams or one for sport-section and one for other.
-It is not supported to run Docker locally on PC|Mac. Also if you get stuck, you may need
-someone to help you with your Docker image via remote SSH - so keep that in mind.
-So now, install Docker on your host
-and run as non root. Also it goes without saying you should secure you Docker host.
+1. We need a different host, for Docker, there are two dozen hosting providers where you can install a Docker host.
+The Docker host should be very close to your admin team due to IDE keystroke latency, the closer the better. Also, recommended to have more  For example NYC and LA if you have two teams or one for sport-section and one for other.
+It is not recommneded to run Docker locally on PC|Mac, or to have one 'Docker host' per developer, Web Admin is multi user. Separate, if you get stuck, you may need
+someone to help you with your Docker image via remote SSH - so keep that in mind, maybe in your DMZ or in your VPN.
+So now, install Docker on your host (ex: vultr.com, Vultr also has Windows Docker hosts in case you like ). Also it goes without saying you should secure you Docker host, run docker as non-root, etc.
 
-2. Once Docker is installed, lets get a working image for this to continously build the pug on your S3 hosted webapp.
+2. Once Docker is installed, lets get a working image for this:
 
 		// gets the image from baseimage that has goofYs for S3, a group PHP IDE Codiad and node to build the edited Pug installed:
 		docker pull nbake/nbake:latest
@@ -24,7 +23,7 @@ and run as non root. Also it goes without saying you should secure you Docker ho
 		// start the downloaded container with ports 8080 for IDE and 8081 for admin:
 		docker run -d --privileged -p 8080:8080 -p 8081:8081 nbake/nbake /sbin/my_init
 
-		// get the PID
+		// get the container PID
 		docker ps
 
 		//enter the container
