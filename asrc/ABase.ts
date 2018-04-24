@@ -11,7 +11,6 @@ const logger = require('tracer').console()
 
 import { Meta, Dirs, Bake, Items, Tag, NBake } from 'nbake/lib/Base'
 
-
 export class Srv {
 	static bake //()
 	static itemize// ()

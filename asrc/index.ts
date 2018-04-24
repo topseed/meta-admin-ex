@@ -5,7 +5,7 @@ declare var console: Console
 declare var __dirname: any
 
 import { Meta, Dirs, Bake, Items, Tag, NBake } from 'nbake/lib/Base'
-import { Srv } from './WrapBase'
+import { Srv } from './ABase'
 
 const os = require('os')
 const fs = require('fs')
@@ -17,8 +17,7 @@ let b = new NBake()
 console.log(b.ver())
 // /////////////////////////////////////////////////////////////////////////////////////
 
-let config = yaml.load(fs.readFileSync('config.yaml'))
-console.log(config)
+
 
 //itemize('linkBlog')
 
@@ -46,16 +45,12 @@ function itemize(dir) {
 	return msg
 }
 
-function readStartProps() {
-	//get project properties
-	// pasword -- or out
-	// default base
-	// items can point to root
 
-}
 
 // process.exit()
 // /////////////////////////////////////////////////////////////////
+let config = yaml.load(fs.readFileSync('config.yaml'))
+console.log(config)
 
 const srv = new Srv(bake, itemize, config)
 srv.s()
