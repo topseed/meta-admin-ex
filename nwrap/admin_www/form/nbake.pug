@@ -1,17 +1,27 @@
 
 p
 .ui.segment
-	.ui.form
+	#nb1.ui.form
 		h4.ui.dividing.header NBake
 		.field
 			label Folder
 			input(type='text', name='folder', placeholder='blog')
-		#msgNB.ui.message.hidden
 
+		.ui.message.hidden
 		button.ui.button(type='submit') NBake
 
 
 script.
-	loadjs.ready('style', function () {
-		console.log('page 1 component script here')
-	})
+	loadjs.ready('site', function () {
+		$('#nb1 .button').click(function(){
+			let sec = $('#Pform [name="secret"]').val()
+			let folder = $('#nb1 [name="folder"]').val()
+			call()
+		})//click
+	})//ready
+
+	function call(sec, folder) {
+		console.log('calling ...')
+		$('#nb1 .message').text('called')
+		$('#nb1 .message').removeClass('hidden')
+	}

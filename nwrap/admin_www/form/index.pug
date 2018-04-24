@@ -10,6 +10,12 @@ block main
 	br
 	p
 	.ui.text.container
+		#Pform.ui.form
+			h4.ui.dividing.header Secret
+			.field
+				label Folder
+				input(type='text', name='secret', placeholder='123')
+		p
 		include nbake
 		include i
 		include newBlog
