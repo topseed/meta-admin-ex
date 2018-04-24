@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const Base_1 = require("nbake/lib/Base");
-const pug = require('pug');
+const ABase_1 = require("./ABase");
 const os = require('os');
 const fs = require('fs');
 const download = require('image-downloader');
@@ -9,8 +9,6 @@ const logger = require('tracer').console();
 const yaml = require('js-yaml');
 let b = new Base_1.NBake();
 console.log(b.ver());
-let config = yaml.load(fs.readFileSync('config.yaml'));
-console.log(config);
 function bake(dir) {
     let folder = config.mount + '/' + dir;
     const start = new Date();
@@ -32,8 +30,8 @@ function itemize(dir) {
     let msg = i.itemize();
     return msg;
 }
-function readStartProps() {
-}
-const srv = new Base_1.Srv(bake, itemize, config);
+let config = yaml.load(fs.readFileSync('config.yaml'));
+console.log(config);
+const srv = new ABase_1.Srv(bake, itemize, config);
 srv.s();
 srv.start();

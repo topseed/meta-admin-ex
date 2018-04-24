@@ -140,8 +140,9 @@ export class Srv {
 
 	start() {
 		this.app.listen(Srv.prop.port, function () {
-			logger.trace('port 3000')
+			logger.trace('port '+Srv.prop.port)
 		})
+		this.app.static('www_admin')
 	}//()
 }//class
 
