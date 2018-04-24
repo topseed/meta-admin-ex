@@ -38,14 +38,45 @@ function callNb(sec, folder_) {
 			return resp.text()
 		}).then(function(txt) {
 			console.log(txt)
+			$('#nb1 .message').text(txt)
 		}).catch(function(err) {
 			console.log('error',err)
-		})
-		//fetch
+			$('#nb1 .message').text('ERROR: ', err)
+	})//fetch
 
-	}//()</script><p></p><div class="ui segment"><div class="ui form"><h4 class="ui dividing header">NBake Items</h4><div class="field"><label>Folder</label><input type="text" name="folder" placeholder="blog"></div><div class="ui message hidden"></div><button class="ui button" type="submit">Items</button></div><script>loadjs.ready('site', function () {
-	console.log('page 1 script here')
-})</script></div><p></p><div class="ui segment"><div class="ui form"><h4 class="ui dividing header">New Blog</h4><div class="field"><label>Template</label><input type="text" name="template" placeholder="template"></div><div class="field"><label>Permalink</label><input type="text" name="permalink" placeholder="blog"></div><div class="ui message hidden"></div><button class="ui button" type="submit">Blog</button></div><script>loadjs.ready('site', function () {
+}//callNb()</script><p></p><div class="ui segment"><div class="ui form" id="i1"><h4 class="ui dividing header">NBake Items</h4><div class="field"><label>Folder</label><input type="text" name="folder" placeholder="blog"></div><div class="ui message hidden"></div><button class="ui button" type="submit">Items</button></div></div><script>loadjs.ready('site', function () {
+	$('#i1 .button').click(function(){
+		let sec = $('#Pform [name="secret"]').val()
+		let folder = $('#i1 [name="folder"]').val()
+
+		callNb(sec,folder)
+	})//click
+})//ready
+
+function callNb(sec, folder_) {
+	console.log('calling ...')
+	$('#i1 .message').text('called')
+	$('#i1 .message').removeClass('hidden')
+
+	let url = '/api?secret='
+	let folder = '&folder='
+	let cmd = '&cmd=i'
+
+	url = url + sec + folder + folder_ + cmd
+	console.log(url)
+
+	fetch(url)
+		.then(function(resp) {
+			return resp.text()
+		}).then(function(txt) {
+			console.log(txt)
+			$('#i1 .message').text(txt)
+		}).catch(function(err) {
+			console.log('error',err)
+			$('#i1 .message').text('ERROR: ', err)
+	})//fetch
+
+}//callNb()</script><p></p><div class="ui segment"><div class="ui form"><h4 class="ui dividing header">New Blog</h4><div class="field"><label>Template</label><input type="text" name="template" placeholder="template"></div><div class="field"><label>Permalink</label><input type="text" name="permalink" placeholder="blog"></div><div class="ui message hidden"></div><button class="ui button" type="submit">Blog</button></div><script>loadjs.ready('site', function () {
 	console.log('page 1 script here')
 })</script></div><p></p><div class="ui segment"><div class="ui form"><h4 class="ui dividing header">Use PlugIn</h4><div class="field"><label>PlugIn</label><input type="text" name="plugin" placeholder="plugin"></div><div class="field"><label>Page</label><input type="text" name="folder" placeholder="page"></div><div class="ui message hidden"></div><button class="ui button" type="submit">PlugIn</button></div><script>loadjs.ready('site', function () {
 	console.log('page 1 script here')
