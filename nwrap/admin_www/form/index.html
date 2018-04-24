@@ -14,7 +14,7 @@
 	.toc.item {
 		display: none !important;
 	}
-}</style><div class="pusher"><p></p><br><p></p><div class="ui text container"><div class="ui form" id="Pform"><h4 class="ui dividing header">Secret</h4><div class="field"><label>Folder</label><input type="text" name="secret" placeholder="123"></div></div><p></p><p></p><div class="ui segment"><div class="ui form" id="nb1"><h4 class="ui dividing header">NBake</h4><div class="field"><label>Folder</label><input type="text" name="folder" placeholder="blog"></div><div class="ui message hidden"></div><button class="ui button" type="submit">NBake</button></div></div><script>loadjs.ready('site', function () {
+}</style><div class="pusher"><p></p><br><p></p><div class="ui text container"><div class="ui form" id="Pform"><h4 class="ui dividing header">Admim Form</h4><div class="field"><label>Secret</label><input type="text" name="secret" placeholder="123"></div></div><p></p><p></p><div class="ui segment"><div class="ui form" id="nb1"><h4 class="ui dividing header">NBake</h4><div class="field"><label>Folder</label><input type="text" name="folder" placeholder="blog"></div><div class="ui message hidden"></div><button class="ui button" type="submit">NBake</button></div></div><script>loadjs.ready('site', function () {
 	$('#nb1 .button').click(function(){
 		let sec = $('#Pform [name="secret"]').val()
 		let folder = $('#nb1 [name="folder"]').val()
@@ -26,7 +26,15 @@ function call(sec, folder) {
 	console.log('calling ...')
 	$('#nb1 .message').text('called')
 	$('#nb1 .message').removeClass('hidden')
-}</script><p></p><div class="ui segment"><div class="ui form"><h4 class="ui dividing header">NBake Items</h4><div class="field"><label>Folder</label><input type="text" name="folder" placeholder="blog"></div><div class="ui message hidden"></div><button class="ui button" type="submit">Items</button></div><script>loadjs.ready('site', function () {
+
+	fetch('https://jsonplaceholder.typicode.com/posts/1')
+		.then(function(resp) {
+			return resp.json()
+		}).then(function(json) {
+			console.log(json)
+		})//fetch
+
+	}//()</script><p></p><div class="ui segment"><div class="ui form"><h4 class="ui dividing header">NBake Items</h4><div class="field"><label>Folder</label><input type="text" name="folder" placeholder="blog"></div><div class="ui message hidden"></div><button class="ui button" type="submit">Items</button></div><script>loadjs.ready('site', function () {
 	console.log('page 1 script here')
 })</script></div><p></p><div class="ui segment"><div class="ui form"><h4 class="ui dividing header">New Blog</h4><div class="field"><label>Template</label><input type="text" name="template" placeholder="template"></div><div class="field"><label>Permalink</label><input type="text" name="permalink" placeholder="blog"></div><div class="ui message hidden"></div><button class="ui button" type="submit">Blog</button></div><script>loadjs.ready('site', function () {
 	console.log('page 1 script here')

@@ -16,12 +16,23 @@ script.
 		$('#nb1 .button').click(function(){
 			let sec = $('#Pform [name="secret"]').val()
 			let folder = $('#nb1 [name="folder"]').val()
-			call()
+			callNb()
 		})//click
 	})//ready
 
-	function call(sec, folder) {
+	function callNb(sec, folder) {
 		console.log('calling ...')
 		$('#nb1 .message').text('called')
 		$('#nb1 .message').removeClass('hidden')
-	}
+
+		let url = '/api/?sec='
+		
+
+		fetch('https://jsonplaceholder.typicode.com/posts/1')
+			.then(function(resp) {
+				return resp.json()
+			}).then(function(json) {
+				console.log(json)
+			})//fetch
+
+		}//()
