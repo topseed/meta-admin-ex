@@ -1,4 +1,3 @@
-# These are build node
 
 baseimage
 
