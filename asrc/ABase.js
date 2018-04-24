@@ -105,8 +105,9 @@ class Srv {
         return this;
     }
     start() {
+        this.app.use(express.static(__dirname + '/www_admin'));
         this.app.listen(Srv.prop.port, function () {
-            logger.trace('port 3000');
+            logger.trace('port ' + Srv.prop.port);
         });
     }
 }

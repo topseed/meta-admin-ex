@@ -139,10 +139,12 @@ export class Srv {
 	}//()
 
 	start() {
+		this.app.use(express.static(__dirname + '/www_admin'))
+
 		this.app.listen(Srv.prop.port, function () {
 			logger.trace('port '+Srv.prop.port)
 		})
-		this.app.static('www_admin')
+
 	}//()
 }//class
 
