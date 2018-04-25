@@ -8,10 +8,10 @@ IMPORTANT: While webmaster is the one to install this, the user is: a tech manag
 
 Pre-requsites:
 Beforehand, you should have S3 host, key, secret and bucket-name (from your manager?) and tested
-the password work, ex: upload a sample via CyberDuck (FTP) - before you start the admin install. And you should be able to access your website from a browser.
+the password works. Ex: Upload a sample webapp via CyberDuck (FTP) - before you start the admin install. And you should be able to access your website from a browser.
 ( Maybe check http://github.com/topseed/nbake-user first )
 
-If you know how to install LAMP, then a webmaster should be able to do this docker based install. It should take about an hour first time you do it, here we go:
+If you know how to install LAMP, then a webmaster should be able to do this docker based install. It should take about half an hour first time you do it, here we go:
 
 1. We need a different host, for Docker, there are two dozen hosting providers where you can install a Docker host.
 The Docker host should be very close to your admin team due to IDE keystroke latency, the closer the better. Also, recommended to have more  For example NYC and LA if you have two teams or one for sport-section and one for other.

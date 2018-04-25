@@ -11,7 +11,7 @@ Codiad
 node
 
 
-docker commit 765ca3b5081b nbake/nbake:latest
+docker commit 142ea243847b nbake/nbake:latest
 
 docker push nbake/nbake:latest
 
