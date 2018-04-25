@@ -17,7 +17,8 @@ If you know how to install LAMP, then a webmaster should be able to do this dock
 The Docker host should be very close to your admin team due to IDE keystroke latency, the closer the better. Also, it is recommended to have more than one Docker Host. For example NYC and LA if you have two teams; or one for sport-section and one for other.
 It is not recommneded to run Docker locally on PC|Mac, or to have one 'Docker host' per developer, Web Admin is multi user. Separate, if you get stuck, you may need
 someone to help you with your Docker image via remote SSH - so keep that in mind, maybe in your DMZ or in your VPN.
-So now, install Docker on your host (ex: vultr.com, Vultr also has Windows Docker hosts in case you like ). Also it goes without saying you should secure you Docker host, run docker as non-root, etc.
+So now that you picked a host, install Docker on your host (ex: vultr.com, Vultr also has Windows Docker hosts in case you like that. ). Also it goes without saying you should secure you Docker host, run docker as non-root, etc.
+
 
 2. Once Docker is installed, lets get a working image for this:
 
