@@ -45,6 +45,8 @@ So now, install Docker on your host (ex: vultr.com, Vultr also has Windows Docke
 		caddy &
 
 So far we setup the free Codiad IDE in the container.
+You can later add IDE plugins for the group from here:
+- http://market.codiad.com
 
 3. Now open your browser (Chrome supports QUIC and so does Caddy), by going to http://YOUR-HOST-IP:8080
 
@@ -105,7 +107,12 @@ But: a lead would use the web IDE:
 
 
 
+Commercial support, hosting, training, plugins and consulting are provided by:
+- http://narwhalstar.com
+or
+- http://wordpug.com
 
+Note that this is Apache license, and you to could/should consider supporting it.
 
 
 
