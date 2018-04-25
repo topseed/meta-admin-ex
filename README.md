@@ -9,12 +9,12 @@ IMPORTANT: While webmaster is the one to install this, the user is: a tech manag
 Pre-requsites:
 Beforehand, you should have S3 host, key, secret and bucket-name (from your manager?) and tested
 the password works. Ex: Upload a sample webapp via CyberDuck (FTP) - before you start the admin install. And you should be able to access your website from a browser.
-( Maybe check http://github.com/topseed/nbake-user first )
+( Maybe check http://github.com/topseed/nbake-user first ). Let it soak a day (ie, don't try to get the admin docker working on same day you got S3 website working, take a break.)
 
 If you know how to install LAMP, then a webmaster should be able to do this docker based install. It should take about half an hour first time you do it, here we go:
 
-1. We need a different host, for Docker, there are two dozen hosting providers where you can install a Docker host.
-The Docker host should be very close to your admin team due to IDE keystroke latency, the closer the better. Also, recommended to have more  For example NYC and LA if you have two teams or one for sport-section and one for other.
+1. We need a host, for Docker, there are two dozen hosting providers where you can install a Docker host.
+The Docker host should be very close to your admin team due to IDE keystroke latency, the closer the better. Also, it is recommended to have more than one Docker Host. For example NYC and LA if you have two teams; or one for sport-section and one for other.
 It is not recommneded to run Docker locally on PC|Mac, or to have one 'Docker host' per developer, Web Admin is multi user. Separate, if you get stuck, you may need
 someone to help you with your Docker image via remote SSH - so keep that in mind, maybe in your DMZ or in your VPN.
 So now, install Docker on your host (ex: vultr.com, Vultr also has Windows Docker hosts in case you like ). Also it goes without saying you should secure you Docker host, run docker as non-root, etc.
