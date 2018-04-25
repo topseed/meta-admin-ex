@@ -2,12 +2,16 @@
 
 For webmasters, install this to admin and build your S3 & markup(Pug) based webapp.  It lets you continously build the pug on your S3 hosted webapp.
 
-Pre-requsites: There is about a dozen S3 hosting corps, not just AWS, ex: Digital Ocean Spaces.
+IMPORTANT: While webmaster is the one to install this, the user is: a tech manager or admin.
+
+- http://hub.docker.com/r/nbake/nbake
+
+Pre-requsites:
 Beforehand, you should have S3 host, key, secret and bucket-name (from your manager?) and tested
-the password work, ex: upload a sample via CyberDuck (FTP) - before you start the admin install.
+the password work, ex: upload a sample via CyberDuck (FTP) - before you start the admin install. And you should be able to access your website from a browser.
 ( Maybe check http://github.com/topseed/nbake-user first )
 
-If you know how to install LAMP, then you should be able to do this docker based install. It should take about an hour first time you do it, here we go:
+If you know how to install LAMP, then a webmaster should be able to do this docker based install. It should take about an hour first time you do it, here we go:
 
 1. We need a different host, for Docker, there are two dozen hosting providers where you can install a Docker host.
 The Docker host should be very close to your admin team due to IDE keystroke latency, the closer the better. Also, recommended to have more  For example NYC and LA if you have two teams or one for sport-section and one for other.
@@ -93,7 +97,7 @@ You can call the build yourself: http://YOUR-HOST-IP:8081/api?secret=123&folder=
 
 Pending is admin editor, something more friendly for admins, who may not like the IDE.
 
-But: a pro would use the web IDE:
+But: a lead would use the web IDE:
 - more of a team player, no need to setup
 - leverage docker
 - can develop from IOS table (w/ an Apple blue toother keyboard), ChromeBook or Andorid.
