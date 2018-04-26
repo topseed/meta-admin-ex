@@ -1,0 +1,95 @@
+# admin
+
+
+It should take about half an hour first time you setup a docker container it, here we go:
+
+1. You need a host, for Docker, there are two dozen hosting providers where you can install a Docker host.
+The Docker host should be very close to your admin team due to IDE keystroke latency, the closer the better. Also, it is recommended to have more than one Docker Host. For example in NYC and LA if you have two teams in those 2 cities; or one for sport-section and one for other parts of webapp.
+It is not recommneded to run Docker locally on PC|Mac, or to have one 'Docker host' per developer: Web Admin is multi user, it supports mutiple admins. Separate, if you get stuck, you may need
+someone to help you with your Docker image via remote SSH - so keep that in mind, maybe chose your DMZ or in your Cloud VPN.
+So now that you picked a host, install Docker CE (Community Eddition) on your host (ex: vultr.com, Vultr also has Windows Docker hosts in case you like that. ). Also it goes without saying you should secure you Docker host, run docker as non-root, etc.
+
+
+2. Once Docker is installed, lets donwload a working container image for nbake admin:
+
+		// download the nbake container image
+		docker pull nbake/nbake:latest
+
+		// start that app container with ports 8080 for IDE and 8081 for admin:
+		docker run -d --privileged -p 8080:8080 -p 8081:8081 nbake/nbake /sbin/my_init
+
+		// get the container PID
+		docker ps
+
+		//enter the container
+		docker exec -ti YOUR-PID /bin/bash
+
+		// now inside the container:
+		cd root
+		ls -la
+
+		//start PHP
+		nohup /root/bin/php-fpm &
+		(enter)
+
+		//start http server w/ IDE on 8080
+		caddy &
+
+So far we setup the free Codiad IDE in the container.
+You can later add IDE plugins from here:
+- http://market.codiad.com
+
+3. Now open your browser (Chrome is best, it supports QUIC and so does Caddy), by going to http://YOUR-HOST-IP:8080
+
+- Make a project in folder 's3'. Create a dummy file in the IDE.
+You'll need to know the project folder, I assume 's3'. You can ssh to /root/html/workspace/s3
+to see the file. ** YOU ARE DIRECTLY EDITING S3 **.
+
+4. Now goofYs to map to your 'S3', where the webapp is:
+
+		~/goofys YOUR-BUCKET-NAME /root/html/workspace/s3
+
+		//edit your credentials [other2] part is very optional, if you have other S3 or other buckets:
+		cat ~/.aws/credentials
+		[default]
+		aws_access_key_id = KEY
+		aws_secret_access_key = SECRET
+		[other2]
+		aws_access_key_id = KEY2
+		aws_secret_access_key = SECRET2
+
+		//also optional, install 'aws cli', we don't use it, but some people like it
+		pip install awscli
+
+		//and you may what to check the speed of the Docker host provider
+		pip install speedtest-cli
+		speedtest-cli
+
+		// mount S3:
+		/root/goofys --profile default -o allow_other --use-content-type narwhal1 /var/www/html/workspace/s3
+
+		// check to see your S3 webapp files
+		ls ~/workspace/s3
+
+Joy? We have S3 inside the container. The group IDE can edit S3 project. Later you can customize the IDE.
+
+5. Last: install nbake web admin on port 8081 so we can ask for a build:
+
+		cd /root/nbake
+
+		// optional, get latest version in the container of the source code from this git project's asrc/ :
+		npm update
+
+		//edit cofig.yaml as needed. It has the secret code to use for the admin and points where the S3 is.
+
+		// start node
+		pm2 start ~/nbake/node_modules/nbake-admin/index.js
+
+Now in your browser go to http://YOUR-HOST-IP:8081
+
+You should be able to build a folder/page that you edited.
+
+
+
+
+
