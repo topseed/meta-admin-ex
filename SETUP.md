@@ -30,21 +30,22 @@ So now that you picked a host, ssh (ex: putty) and install Docker CE (Community 
 		(enter)
 
 		//start http server w/ IDE on 8080
+		cat ~/Caddyfile
 		caddy &
 
-So far we setup the free Codiad IDE in the container.
-You can later add IDE plugins from here:
-- http://market.codiad.com
+So far we started the free Codiad IDE in the container.
 
 3. Now open your browser (Chrome is best, it supports QUIC and so does Caddy), by going to http://YOUR-HOST-IP:8080
 
-- Make a project in folder 's3'. Create a dummy file in the IDE.
-You'll need to know the project folder, I assume 's3'. You can ssh to /root/html/workspace/s3
-to see the file. ** YOU ARE DIRECTLY EDITING S3 **.
+- From the browser, make a new project in folder 's3' - and click 'install'.
+
+- Right click the project, and create a dummy file in the IDE and save.
+
+- Now exit browser and go back to the ssh.
+
+You'll need to know the project folder, I'll assume 's3'. Check that file exists in the ~/workspace.
 
 4. Now goofYs to map to your 'S3', where the webapp is:
-
-		~/goofys YOUR-BUCKET-NAME /root/html/workspace/s3
 
 		//edit your credentials [other2] part is very optional, if you have other S3 or other buckets:
 		cat ~/.aws/credentials
@@ -62,15 +63,19 @@ to see the file. ** YOU ARE DIRECTLY EDITING S3 **.
 		pip install speedtest-cli
 		speedtest-cli
 
-		// mount S3:
-		/root/goofys --profile default -o allow_other --use-content-type narwhal1 /var/www/html/workspace/s3
+		//remove the project file created above
+		rm -rf ~/workspace/s3
+		mkdir ~/workspace/s3
+
+		// mount S3 bucket there:
+		/root/goofys --profile default -o allow_other --use-content-type BUCKET-NAME /var/www/html/workspace/s3
 
 		// check to see your S3 webapp files
 		ls ~/workspace/s3
 
 Joy? We have S3 inside the container. The group IDE can edit S3 project. Later you can customize the IDE.
 
-5. Last: install nbake web admin on port 8081 so we can ask for a build:
+5. Last step: install nbake web admin on port 8081 so we can ask for a build:
 
 		cd /root/nbake
 

@@ -1,4 +1,5 @@
 
+
 baseimage
 
 Ondrej
@@ -9,6 +10,8 @@ goofys
 Codiad
 
 node
+
+pip
 
 
 docker commit 142ea243847b nbake/nbake:latest

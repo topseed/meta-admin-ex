@@ -23,13 +23,15 @@ Benfits of admin:
 - Team player, you set up docker for your entire team.
 
 
-The Docker host should be very close to your admin team due to IDE keystroke latency, the closer the better. Also, it is recommended to have more than one Docker Host. For example in NYC and LA if you have two teams in those 2 cities; or one for sport-section and one for other parts of webapp.
+The Docker host should be very close to your admin team due to IDE keystroke latency, the closer the better. Also, it is recommended to have more than one Docker Host. For example in NYC and LA if you have two teams in those 2 cities; or one for sport-section and one for other parts of webapp. Also, each project, domain, subdomain should have one 'nbake Docker' instance.
 It is not recommneded to run Docker locally on PC|Mac, or to have one 'Docker host' per developer: Web Admin is multi user, it supports mutiple admins. Separate, if you get stuck, you may need
 someone to help you with your Docker image via remote SSH - so keep that in mind, maybe chose your DMZ or in your Cloud VPN.
 
 ### Setup
 - http://github.com/topseed/nbake-admin/blob/master/SETUP.md
 
+You can later add IDE plugins from here:
+- http://market.codiad.com
 
 You can  optionally call the build via API: http://YOUR-HOST-IP:8081/api?secret=123&folder=linkBlog&cmd=i
 
