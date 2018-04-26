@@ -37,9 +37,11 @@ So far we started the free Codiad IDE in the container.
 
 3. Now open your browser (Chrome is best, it supports QUIC and so does Caddy), by going to http://YOUR-HOST-IP:8080
 
-- From the browser, make a new project in folder 's3' - and click 'install'.
+- From the browser, make a new project 's3' in folder 's3' - and click 'install'.
 
-- Right click the project, and create a dummy file in the IDE and save.
+- login
+
+- opptional Right click the project, and create a dummy file in the IDE and save.
 
 - Now exit browser and go back to the ssh.
 
@@ -73,7 +75,7 @@ You'll need to know the project folder, I'll assume 's3'. Check that file exists
 		// check to see your S3 webapp files
 		ls ~/workspace/s3
 
-Joy? We have S3 inside the container. The group IDE can edit S3 project. Later you can customize the IDE.
+Go back to browser and refresh the browser. Joy? We have S3 inside the container. The group IDE can edit S3 project. Later you can customize the IDE.
 
 5. Last step: install nbake web admin on port 8081 so we can ask for a build:
 
