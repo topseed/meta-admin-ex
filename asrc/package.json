@@ -22,9 +22,10 @@
 		"node": ">=8.10"
 	},
 	"dependencies": {
-		"nbake": ">=2.4.25",
 		"express": "^4.16.3",
 		"formidable": "^1.2.1",
-		"image-downloader": "^3.3.0"
+		"fs-extra": "^5.0.0",
+		"image-downloader": "^3.3.0",
+		"nbake": ">=2.4.28"
 	}
 }

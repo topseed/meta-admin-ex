@@ -8,8 +8,22 @@ const express = require('express')
 const formidable = require('formidable')
 const os = require('os')
 const logger = require('tracer').console()
+const fse = require('fs-extra')
 
 import { Meta, Dirs, Bake, Items, Tag, NBake } from 'nbake/lib/Base'
+
+export class FileOps {
+
+	root
+
+	constructor(root_) {
+		this.root = root_
+	}
+
+	clone(src,dest) {
+		fse.copySync(this.root+src, this.root+dest)
+	}
+}
 
 export class Srv {
 	static bake //()
@@ -150,5 +164,5 @@ export class Srv {
 
 
 module.exports = {
-	Srv
+	Srv, FileOps
 }

@@ -5,7 +5,7 @@ declare var console: Console
 declare var __dirname: any
 
 import { Meta, Dirs, Bake, Items, Tag, NBake } from 'nbake/lib/Base'
-import { Srv } from './ABase'
+import { Srv, FileOps } from './ABase'
 
 const os = require('os')
 const fs = require('fs')
@@ -19,8 +19,7 @@ console.log(b.ver())
 
 
 
-//itemize('linkBlog')
-
+// process.exit()
 function bake(dir) {
 	let folder = config.mount + '/' + dir
 	const start = new Date()
@@ -45,9 +44,6 @@ function itemize(dir) {
 	return msg
 }
 
-
-
-// process.exit()
 // /////////////////////////////////////////////////////////////////
 let config = yaml.load(fs.readFileSync('config.yaml'))
 console.log(config)
