@@ -1,6 +1,6 @@
 {
 	"name": "nbake-admin",
-	"version": "1.04.025",
+	"version": "1.04.026",
 	"description": "nbake admin & api",
 	"main": "index.js",
 	"bin": {
