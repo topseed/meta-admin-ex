@@ -1,13 +1,10 @@
-# admin
+# nbake-admin setup
 
 
 It should take about half an hour first time you setup a docker container it, here we go:
 
 1. You need a host, for Docker, there are two dozen hosting providers where you can install a Docker host.
-The Docker host should be very close to your admin team due to IDE keystroke latency, the closer the better. Also, it is recommended to have more than one Docker Host. For example in NYC and LA if you have two teams in those 2 cities; or one for sport-section and one for other parts of webapp.
-It is not recommneded to run Docker locally on PC|Mac, or to have one 'Docker host' per developer: Web Admin is multi user, it supports mutiple admins. Separate, if you get stuck, you may need
-someone to help you with your Docker image via remote SSH - so keep that in mind, maybe chose your DMZ or in your Cloud VPN.
-So now that you picked a host, install Docker CE (Community Eddition) on your host (ex: vultr.com, Vultr also has Windows Docker hosts in case you like that. ). Also it goes without saying you should secure you Docker host, run docker as non-root, etc.
+So now that you picked a host, ssh (ex: putty) and install Docker CE (Community Eddition) on your host (ex: vultr.com, Vultr also has Windows Docker hosts in case you like that. ). Also it goes without saying you should secure you Docker host, run docker as non-root, etc.
 
 
 2. Once Docker is installed, lets donwload a working container image for nbake admin:
