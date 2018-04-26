@@ -7,7 +7,7 @@ IMPORTANT: While webmaster is the one to install this, the user is: a tech manag
 - http://hub.docker.com/r/nbake/nbake
 
 
-<img src="https://raw.githubusercontent.com/topseed/nbake-admin/master/admin.PNG" width=200>
+<img src="https://raw.githubusercontent.com/topseed/nbake-admin/master/admin.PNG" width=600>
 
 
 If you know how to install LAMP, then a webmaster should be able to do this docker based install.
