@@ -1,20 +1,48 @@
 
 p
 .ui.segment
-	.ui.form
+	#clone1.ui.form
 		h4.ui.dividing.header Clone (new page)
 		.field
 			label Source
-			input(type='text', name='source', placeholder='page/one')
+			input(type='text', name='src', placeholder='page/one')
 		.field
 			label New PermaLink
-			input(type='text', name='target', placeholder='page/two')
+			input(type='text', name='dest', placeholder='page/two')
 
 		.ui.message.hidden
 		button.ui.button(type='submit') Clone
 
 
 script.
-	loadjs.ready('style', function () {
-		console.log('page 1 component script here')
-	})
+	loadjs.ready('site', function () {
+		$('#nb1 .button').click(function(){
+			let sec = $('#Pform [name="secret"]').val()
+			let folder = $('#nb1 [name="folder"]').val()
+
+			callNb(sec,folder)
+		})//click
+	})//ready
+
+	function callNb(sec, folder_) {
+		console.log('calling nbake ...')
+		$('#nb1 .message').text('called')
+		$('#nb1 .message').removeClass('hidden')
+
+		let url = '/api?secret='
+		let folder = '&folder='
+		url = url + sec + folder + folder_
+		console.log(url)
+
+		fetch(url)
+			.then(function(resp) {
+				return resp.text()
+			}).then(function(txt) {
+				console.log(txt)
+				$('#nb1 .message').text(txt)
+			}).catch(function(err) {
+				console.log('error',err)
+				$('#nb1 .message').text('ERROR: ', err)
+		})//fetch
+
+	}//callNb()

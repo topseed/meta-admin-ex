@@ -4,6 +4,16 @@ const express = require('express');
 const formidable = require('formidable');
 const os = require('os');
 const logger = require('tracer').console();
+const fse = require('fs-extra');
+class FileOps {
+    constructor(root_) {
+        this.root = root_;
+    }
+    clone(src, dest) {
+        fse.copySync(this.root + '/' + src, this.root + '/' + dest);
+    }
+}
+exports.FileOps = FileOps;
 class Srv {
     constructor(bake_, itemize_, prop_) {
         Srv.bake = bake_;
@@ -113,5 +123,5 @@ class Srv {
 }
 exports.Srv = Srv;
 module.exports = {
-    Srv
+    Srv, FileOps
 };

@@ -17,9 +17,8 @@ let b = new NBake()
 console.log(b.ver())
 // /////////////////////////////////////////////////////////////////////////////////////
 
+//process.exit()
 
-
-// process.exit()
 function bake(dir) {
 	let folder = config.mount + '/' + dir
 	const start = new Date()

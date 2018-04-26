@@ -13,17 +13,16 @@ const fse = require('fs-extra')
 import { Meta, Dirs, Bake, Items, Tag, NBake } from 'nbake/lib/Base'
 
 export class FileOps {
-
 	root
-
 	constructor(root_) {
 		this.root = root_
 	}
 
-	clone(src,dest) {
-		fse.copySync(this.root+src, this.root+dest)
-	}
-}
+	clone(src,dest):string {
+		fse.copySync(this.root+'/'+src, this.root+'/'+dest)
+		return 'ok'
+	}//()
+}//FileOps
 
 export class Srv {
 	static bake //()
@@ -54,6 +53,8 @@ export class Srv {
 	}
 
 	s() {
+
+
 		//form
 		this.app.post('/upload', function (req, res) {
 			console.log('upload')
@@ -105,6 +106,32 @@ export class Srv {
 		const folderProp = 'folder'
 		const ITEMS = 'i'
 		const SECRET = Srv.prop.secret
+
+		const srcProp = 'src'
+		const destProp = 'dest'
+
+		this.app.get('/clone', function (req, res) {
+			let qs = req.query
+			let keys = Object.keys( qs )
+			logger.trace(JSON.stringify(qs))
+
+			if(!keys.includes(secretProp)) {
+				Srv.ret(res, 'no secret')
+				return
+			}
+			let secret = qs.secret
+			if(secret != SECRET) {
+				Srv.ret(res, 'wrong')
+				return
+			}
+
+			let src = Srv.bake(qs[srcProp])
+			let dest = Srv.bake(qs[destProp])
+			let f = new FileOps(Srv.prop.mount)
+			let ret = f.clone(src,dest)
+			Srv.ret(res, ret)
+
+		})
 
 		this.app.get('/api', function (req, res) {
 			let qs = req.query
