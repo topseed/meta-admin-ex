@@ -21,7 +21,7 @@ script.
 			let src = $('#clone1 [name="src"]').val()
 			let dest = $('#clone1 [name="dest"]').val()
 
-			callClone(sec,folder)
+			callClone(sec, src, dest)
 		})//click
 	})//ready
 
@@ -30,7 +30,7 @@ script.
 		$('#clone1 .message').text('called')
 		$('#clone1 .message').removeClass('hidden')
 
-		let url = '/api?secret='
+		let url = '/clone?secret='
 		let src = '&src='
 		let dest = '&dest='
 

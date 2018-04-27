@@ -9,9 +9,6 @@ const logger = require('tracer').console();
 const yaml = require('js-yaml');
 let b = new Base_1.NBake();
 console.log(b.ver());
-let f = new ABase_1.FileOps('/Users/uptim/Documents/GitHub/nbake-admin/asrc/www_admin');
-f.clone('form', 'form1');
-process.exit();
 function bake(dir) {
     let folder = config.mount + '/' + dir;
     const start = new Date();
