@@ -28,7 +28,7 @@ function callNb(sec, folder_) {
 	$('#nb1 .message').text('called')
 	$('#nb1 .message').removeClass('hidden')
 
-	let url = '/api?secret='
+	let url = '/bake?secret='
 	let folder = '&folder='
 	url = url + sec + folder + folder_
 	console.log(url)
@@ -44,7 +44,38 @@ function callNb(sec, folder_) {
 			$('#nb1 .message').text('ERROR: ', err)
 	})//fetch
 
-}//call()</script><!--include i--><!--include newBlog--><!--include plugIn--><p></p><div class="ui segment"><div class="ui form" id="clone1"><h4 class="ui dividing header">Clone (new page)</h4><div class="field"><label>Source</label><input type="text" name="src" placeholder="page/one"></div><div class="field"><label>New PermaLink</label><input type="text" name="dest" placeholder="page/two"></div><div class="ui message hidden"></div><button class="ui button" type="submit">Clone</button></div></div><script>loadjs.ready('site', function () {
+}//call()</script><p></p><div class="ui segment"><div class="ui form" id="i1"><h4 class="ui dividing header">NBake Items</h4><div class="field"><label>Folder</label><input type="text" name="folder" placeholder="blog"></div><div class="ui message hidden"></div><button class="ui button" type="submit">Items</button></div></div><script>loadjs.ready('site', function () {
+	$('#i1 .button').click(function(){
+		let sec = $('#Pform [name="secret"]').val()
+		let folder = $('#i1 [name="folder"]').val()
+
+		callNb(sec,folder)
+	})//click
+})//ready
+
+function callNb(sec, folder_) {
+	console.log('calling ...')
+	$('#i1 .message').text('called')
+	$('#i1 .message').removeClass('hidden')
+
+	let url = '/items?secret='
+	let folder = '&folder='
+
+	url = url + sec + folder + folder_ + cmd
+	console.log(url)
+
+	fetch(url)
+		.then(function(resp) {
+			return resp.text()
+		}).then(function(txt) {
+			console.log(txt)
+			$('#i1 .message').text(txt)
+		}).catch(function(err) {
+			console.log('error',err)
+			$('#i1 .message').text('ERROR: ', err)
+	})//fetch
+
+}//callNb()</script><!--include newBlog--><!--include plugIn--><p></p><div class="ui segment"><div class="ui form" id="clone1"><h4 class="ui dividing header">Clone (new page)</h4><div class="field"><label>Source</label><input type="text" name="src" placeholder="page/one"></div><div class="field"><label>New PermaLink</label><input type="text" name="dest" placeholder="page/two"></div><div class="ui message hidden"></div><button class="ui button" type="submit">Clone</button></div></div><script>loadjs.ready('site', function () {
 	$('#clone1 .button').click(function(){
 		let sec = $('#Pform [name="secret"]').val()
 		let src = $('#clone1 [name="src"]').val()

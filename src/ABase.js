@@ -71,12 +71,31 @@ class Srv {
             form.parse(req);
         });
         const secretProp = 'secret';
-        const cmdProp = 'cmd';
         const folderProp = 'folder';
-        const ITEMS = 'i';
         const SECRET = Srv.prop.secret;
         const srcProp = 'src';
         const destProp = 'dest';
+        this.app.get('/items', function (req, res) {
+            let qs = req.query;
+            let keys = Object.keys(qs);
+            logger.trace(JSON.stringify(qs));
+            if (!keys.includes(secretProp)) {
+                Srv.ret(res, 'no secret');
+                return;
+            }
+            let secret = qs.secret;
+            if (secret != SECRET) {
+                Srv.ret(res, 'wrong');
+                return;
+            }
+            try {
+                let msg = Srv.itemize(qs[folderProp]);
+                Srv.ret(res, msg);
+            }
+            catch (err) {
+                Srv.ret(res, err);
+            }
+        });
         this.app.get('/clone', function (req, res) {
             let qs = req.query;
             let keys = Object.keys(qs);
@@ -96,7 +115,7 @@ class Srv {
             let ret = f.clone(src, dest);
             Srv.ret(res, ret);
         });
-        this.app.get('/api', function (req, res) {
+        this.app.get('/bake', function (req, res) {
             let qs = req.query;
             let keys = Object.keys(qs);
             logger.trace(JSON.stringify(qs));
@@ -113,28 +132,13 @@ class Srv {
                 Srv.ret(res, 'no folder');
                 return;
             }
-            if (!keys.includes(cmdProp)) {
-                try {
-                    let msg = Srv.bake(qs[folderProp]);
-                    Srv.ret(res, msg);
-                }
-                catch (err) {
-                    Srv.ret(res, err);
-                }
-                return;
+            try {
+                let msg = Srv.bake(qs[folderProp]);
+                Srv.ret(res, msg);
             }
-            let cmd = qs.cmd;
-            if (cmd == ITEMS) {
-                try {
-                    let msg = Srv.itemize(qs[folderProp]);
-                    Srv.ret(res, msg);
-                }
-                catch (err) {
-                    Srv.ret(res, err);
-                }
-                return;
+            catch (err) {
+                Srv.ret(res, err);
             }
-            Srv.ret(res, 'oops, no op');
         });
         return this;
     }
