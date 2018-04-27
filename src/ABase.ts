@@ -19,7 +19,9 @@ export class FileOps {
 	}
 
 	clone(src,dest):string {
+		logger.trace('copy?')
 		fse.copySync(this.root+'/'+src, this.root+'/'+dest)
+		logger.trace('copy!')
 		return 'ok'
 	}//()
 }//FileOps
@@ -124,8 +126,8 @@ export class Srv {
 				return
 			}
 
-			let src = Srv.bake(qs[srcProp])
-			let dest = Srv.bake(qs[destProp])
+			let src = qs[srcProp]
+			let dest = qs[destProp]
 			let f = new FileOps(Srv.prop.mount)
 			let ret = f.clone(src,dest)
 			Srv.ret(res, ret)
