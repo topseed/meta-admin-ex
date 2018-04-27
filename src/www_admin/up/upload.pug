@@ -1,0 +1,15 @@
+
+p
+.ui.segment
+	#up1.ui.form(action='/upload', enctype='multipart/form-data', method='post')
+		h4.ui.dividing.header NBake Items
+		.field
+			label Target folder
+			input(type='text', name='folder', placeholder='item/one')
+		.field
+			label Select file(s)
+			input(type='file', name='upload', multiple='multiple')
+
+		.ui.message.hidden
+		button.ui.button(type='submit') Upload
+
