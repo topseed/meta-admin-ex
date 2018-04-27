@@ -31,8 +31,8 @@ The Docker host should be very close to your admin team due to IDE keystroke lat
 It is not recommneded to run Docker locally on PC|Mac, or to have one 'Docker host' per developer: Web Admin is multi user, it supports mutiple admins. Separate, if you get stuck, you may need
 someone to help you with your Docker image via remote SSH - so keep that in mind, maybe chose your DMZ or in your Cloud VPN.
 
-### Setup
-- http://github.com/topseed/nbake-admin/blob/master/SETUP.md
+### Setup docker
+- http://github.com/topseed/nbake-admin/blob/master/DOCKER.md
 
 You can later add IDE plugins from here:
 - http://market.codiad.com

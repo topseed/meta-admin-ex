@@ -1,3 +1,3 @@
-mount: /Users/uptim/Documents/GitHub/nbake-src
+mount: /Users/uptim/Documents/GitHub/nbake-src/exApp1
 secret: 123
 port: 8081

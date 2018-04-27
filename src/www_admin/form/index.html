@@ -49,11 +49,11 @@ function callNb(sec, folder_) {
 		let sec = $('#Pform [name="secret"]').val()
 		let folder = $('#i1 [name="folder"]').val()
 
-		callNb(sec,folder)
+		calli(sec,folder)
 	})//click
 })//ready
 
-function callNb(sec, folder_) {
+function calli(sec, folder_) {
 	console.log('calling ...')
 	$('#i1 .message').text('called')
 	$('#i1 .message').removeClass('hidden')
@@ -61,7 +61,7 @@ function callNb(sec, folder_) {
 	let url = '/items?secret='
 	let folder = '&folder='
 
-	url = url + sec + folder + folder_ + cmd
+	url = url + sec + folder + folder_
 	console.log(url)
 
 	fetch(url)

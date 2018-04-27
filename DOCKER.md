@@ -84,7 +84,7 @@ Go back to browser and refresh the browser. Joy? We have S3 inside the container
 		// optional, get latest version in the container of the source code from this git project's asrc/ :
 		npm update
 
-		//edit cofig.yaml as needed. It has the secret code to use for the admin and points where the S3 is.
+		//edit cofig.yaml as needed. It has the secret code to use for the admin and points where the S3 is. Change the secret code
 
 		// start node
 		pm2 start ~/nbake/node_modules/nbake-admin/index.js
