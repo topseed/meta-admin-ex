@@ -54,7 +54,6 @@ export class Srv {
 
 	s() {
 
-
 		//form
 		this.app.post('/upload', function (req, res) {
 			console.log('upload')

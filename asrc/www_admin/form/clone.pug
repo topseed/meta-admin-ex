@@ -16,22 +16,26 @@ p
 
 script.
 	loadjs.ready('site', function () {
-		$('#nb1 .button').click(function(){
+		$('#clone1 .button').click(function(){
 			let sec = $('#Pform [name="secret"]').val()
-			let folder = $('#nb1 [name="folder"]').val()
+			let src = $('#clone1 [name="src"]').val()
+			let dest = $('#clone1 [name="dest"]').val()
 
-			callNb(sec,folder)
+			callClone(sec,folder)
 		})//click
 	})//ready
 
-	function callNb(sec, folder_) {
-		console.log('calling nbake ...')
-		$('#nb1 .message').text('called')
-		$('#nb1 .message').removeClass('hidden')
+	function callClone(sec, src_, dest_) {
+		console.log('calling clone ...')
+		$('#clone1 .message').text('called')
+		$('#clone1 .message').removeClass('hidden')
 
 		let url = '/api?secret='
-		let folder = '&folder='
-		url = url + sec + folder + folder_
+		let src = '&src='
+		let dest = '&dest='
+
+		url = url + sec + src + src_
+		url = url + dest + dest_
 		console.log(url)
 
 		fetch(url)
@@ -39,10 +43,10 @@ script.
 				return resp.text()
 			}).then(function(txt) {
 				console.log(txt)
-				$('#nb1 .message').text(txt)
+				$('#clone1 .message').text(txt)
 			}).catch(function(err) {
 				console.log('error',err)
-				$('#nb1 .message').text('ERROR: ', err)
+				$('#clone1 .message').text('ERROR: ', err)
 		})//fetch
 
-	}//callNb()
+	}//call()
