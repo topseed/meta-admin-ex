@@ -22,6 +22,7 @@ class Srv {
         Srv.bake = bake_;
         Srv.itemize = itemize_;
         Srv.prop = prop_;
+        Srv.mount = prop_.mount;
         this.app = express();
         this.app.set('views', __dirname + '/admin_www');
         this.app.get('/upload', function (req, res) {
@@ -35,7 +36,10 @@ class Srv {
         res.write('\n\n');
         res.end();
     }
-    s() {
+    u() {
+        const secretProp = 'secret';
+        const folderProp = 'folder';
+        const SECRET = Srv.prop.secret;
         this.app.post('/upload', function (req, res) {
             console.log('upload');
             const form = new formidable.IncomingForm();
@@ -46,6 +50,8 @@ class Srv {
             let fields = [];
             form.on('field', function (field, value) {
                 console.log(field, value);
+                if (field == 'secret')
+                    console.log('???');
                 fields.push([field, value]);
             });
             form.on('progress', function (bytesReceived, bytesExpected) {
@@ -57,19 +63,43 @@ class Srv {
             });
             form.on('error', function (err) {
                 console.log(err);
+                Srv.removeFiles(files);
             });
             form.on('aborted', function () {
                 console.log('user aborted');
+                Srv.removeFiles(files);
             });
             form.on('end', function () {
-                console.log('done');
-                res.writeHead(200, { 'content-type': 'text/plain' });
-                res.write('received fields:\n\n ' + (fields));
-                res.write('\n\n');
-                res.end('received files:\n\n ' + (files));
+                console.log('end');
+                logger.trace(files);
+                logger.trace(JSON.stringify(files));
+                let folder = fields['folder'];
+                folder = Srv.mount + folder;
+                for (let i in files)
+                    try {
+                        let fn = folder + i;
+                        console.log(fn);
+                        fse.moveSync(i, fn);
+                    }
+                    catch (e) {
+                        logger.trace(e);
+                    }
+                res.redirect('/upDone/?files=' + files);
             });
             form.parse(req);
         });
+    }
+    static removeFiles(f) {
+        for (let i in f)
+            try {
+                fse.removeSync(i);
+            }
+            catch (e) {
+                logger.trace(e);
+            }
+    }
+    s() {
+        this.u();
         const secretProp = 'secret';
         const folderProp = 'folder';
         const SECRET = Srv.prop.secret;
