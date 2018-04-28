@@ -30,13 +30,15 @@ export class Srv {
 	static bake //()
 	static itemize// ()
 	static prop //ROOT folder, yaml, etc.
-
+	static mount
 	app //express
 
 	constructor(bake_, itemize_, prop_) {// functions to call
 		Srv.bake = bake_
 		Srv.itemize = itemize_
 		Srv.prop = prop_
+		Srv.mount = prop_.mount
+
 		this.app = express()
 		this.app.set('views', __dirname + '/admin_www')
 
@@ -90,11 +92,11 @@ export class Srv {
 			})
 
 			form.on('end', function() {
-				console.log('done')
-				res.writeHead(200, {'content-type': 'text/plain'})
-				res.write('received fields:\n\n '+(fields))
-				res.write('\n\n')
-				res.end('received files:\n\n '+(files))
+
+				logger.trace(fields)
+				logger.trace(files)
+
+				res.redirect('/upDone/?files='+files)
 			})
 
 			//start upload
