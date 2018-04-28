@@ -3,10 +3,11 @@ p
 .ui.segment
 	p Upload done
 
+	#here
 
 script.
 	console.log( getUrlVars() )
-	
+
 	function getUrlVars() {
 		var vars = [], hash
 		var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')
@@ -17,3 +18,17 @@ script.
 		}
 		return vars
 	}
+
+	loadjs('files_d.js', 'binding', {async: false})
+
+	loadjs.ready(['site','binding'], function () {
+		console.log('page 2')
+		var data = {
+			'myNum': Math.floor(Math.random() * 20)
+		}
+
+		// dynamic pug binding example
+		//- Render the pinc_p.js binding with data
+		//- Naming convention:  pinc_p.js -> pincPTbinding
+		$('#here').html(filesDBind(data))
+	})
