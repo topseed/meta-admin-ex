@@ -56,11 +56,15 @@ export class Srv {
 		res.end()
 	}
 
-	s() {
+	u() {//upload
+		const secretProp = 'secret'
+		const folderProp = 'folder'
+		const SECRET = Srv.prop.secret
 
 		//form
 		this.app.post('/upload', function (req, res) {
 			console.log('upload')
+
 			const form = new formidable.IncomingForm()
 			form.uploadDir = os.homedir() + '/tmp'
 			form.keepExtensions = true
@@ -71,7 +75,10 @@ export class Srv {
 
 			form.on('field', function(field, value) {
 				console.log(field, value)
-				fields.push([field, value])
+				if(field=='secret')
+					console.log('???')
+
+					fields.push([field, value])
 			})
 
 			form.on('progress', function(bytesReceived, bytesExpected) {
@@ -85,16 +92,31 @@ export class Srv {
 
 			form.on('error', function(err) {
 				console.log(err)
+				Srv.removeFiles(files)
 			})
 
 			form.on('aborted', function() {
 				console.log('user aborted')
+				Srv.removeFiles(files)
 			})
 
 			form.on('end', function() {
+				console.log('end')
 
-				logger.trace(fields)
 				logger.trace(files)
+				logger.trace(JSON.stringify(files))
+
+				let folder = fields['folder']
+				folder = Srv.mount + folder
+
+				for (let i in files)
+					try {
+						let fn = folder + i
+						console.log(fn)
+						fse.moveSync(i, fn)
+					} catch(e) {
+						logger.trace(e)
+					}
 
 				res.redirect('/upDone/?files='+files)
 			})
@@ -103,6 +125,20 @@ export class Srv {
 			form.parse(req)
 
 		})//post route
+
+	}//()
+
+	static removeFiles(f) {
+		for (let i in f)
+			try {
+				fse.removeSync(i)
+			} catch(e) {
+				logger.trace(e)
+			}
+	}//()
+
+	s() {//api
+		this.u()
 
 		const secretProp = 'secret'
 		const folderProp = 'folder'
