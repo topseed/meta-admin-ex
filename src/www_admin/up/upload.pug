@@ -1,14 +1,18 @@
 
 p
 .ui.segment
-	#up1.ui.form(action='/upload', enctype='multipart/form-data', method='post')
-		h4.ui.dividing.header NBake Items
+
+	#upload1.dropzone.ui.form
+
+		h4.ui.dividing.header Upload
 		.field
 			label Secret
 			input(type='text', name='secret', placeholder='123')
+
 		.field
 			label.green.button Choose file(s)
-			input(type='file', name='upload', multiple='multiple')
+			input(type='file', name='file', multiple='multiple')
+
 		.field
 			label Target folder
 			input(type='text', name='folder', placeholder='item/one')
@@ -16,3 +20,63 @@ p
 		.ui.message.hidden
 		button.ui.button(type='submit') Upload
 
+
+script.
+	loadjs([
+		'//cdn.jsdelivr.net/npm/dropzone@5.4.0/dist/min/dropzone.min.js'
+		,'//cdn.jsdelivr.net/npm/dropzone@5.4.0/dist/min/dropzone.min.css'
+		//, '//cdn.jsdelivr.net/npm/riot@3.9.1/riot.js'
+	], 'dropzone' /* bundle ID */, {
+		async: false //required due to loadjs bug with bundles
+	})
+
+	loadjs.ready(['site','dropzone'], function () {
+		setupDZ()
+	})//ready
+
+
+	function setupDZ() {
+		var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+			url: "/upload", // Set the url
+			thumbnailWidth: 80,
+			thumbnailHeight: 80,
+			parallelUploads: 20,
+			previewTemplate: previewTemplate,
+			autoQueue: false, // Make sure the files aren't queued until manually added
+			previewsContainer: "#previews", // Define the container to display the previews
+			clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+		})
+
+		myDropzone.on("addedfile", function(file) {
+			// Hookup the start button
+			file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
+		})
+
+		// Update the total progress bar
+		myDropzone.on("totaluploadprogress", function(progress) {
+			document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
+		})
+
+		myDropzone.on("sending", function(file) {
+			// Show the total progress bar when upload starts
+			document.querySelector("#total-progress").style.opacity = "1"
+			// And disable the start button
+			file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
+		})
+
+		// Hide the total progress bar when nothing's uploading anymore
+		myDropzone.on("queuecomplete", function(progress) {
+			document.querySelector("#total-progress").style.opacity = "0";
+		})
+
+		// Setup the buttons for all transfers
+		// The "add files" button doesn't need to be setup because the config
+		// `clickable` has already been specified.
+		document.querySelector("#actions .start").onclick = function() {
+			myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+		}
+		document.querySelector("#actions .cancel").onclick = function() {
+			myDropzone.removeAllFiles(true);
+		}
+
+	}//()
