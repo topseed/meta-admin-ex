@@ -50,7 +50,7 @@ class Srv {
             let fields = [];
             form.on('field', function (field, value) {
                 console.log(field, value);
-                if (field == 'secret')
+                if (field == secretProp)
                     console.log('???');
                 fields.push([field, value]);
             });
@@ -64,16 +64,18 @@ class Srv {
             form.on('error', function (err) {
                 console.log(err);
                 Srv.removeFiles(files);
+                res.status(422).send(err);
             });
             form.on('aborted', function () {
                 console.log('user aborted');
                 Srv.removeFiles(files);
+                res.sendStatus(200);
             });
             form.on('end', function () {
                 console.log('end');
                 logger.trace(files);
                 logger.trace(JSON.stringify(files));
-                let folder = fields['folder'];
+                let folder = fields[folderProp];
                 folder = Srv.mount + folder;
                 for (let i in files)
                     try {
@@ -83,11 +85,11 @@ class Srv {
                     }
                     catch (e) {
                         logger.trace(e);
+                        res.status(422).send(e);
                     }
-                res.writeHead(200, { 'content-type': 'text/plain' });
-                res.write('received fields:\n\n ' + (fields));
-                res.write('\n\n');
-                res.end('received files:\n\n ' + (files));
+                res.status(200);
+                res.type('json');
+                res.send(fields, files);
             });
             form.parse(req);
         });

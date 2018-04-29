@@ -12,27 +12,62 @@ p
 			label Target folder
 			input(type='text', name='folder', placeholder='item/one')
 
-		p Drop files here to upload.
+		p
+		br
+		p (Drag and ) Drop files here to upload.
 
 
 script.
 	loadjs([
 		'//cdn.jsdelivr.net/npm/dropzone@5.4.0/dist/min/dropzone.min.js'
-		, '//cdn.jsdelivr.net/npm/riot@3.9.1/riot.js'
-	], 'dropzone' /* bundle ID */, {
+		,'//cdn.jsdelivr.net/npm/dropzone@5.4.0/dist/min/dropzone.min.css'
+		//, '//cdn.jsdelivr.net/npm/riot@3.9.1/riot.js'
+	], 'dz' /* bundle ID */, {
 		async: false //required due to loadjs bug with bundles
 	})
 
-	loadjs.ready(['site','dropzone'], function () {
+	loadjs.ready(['site','dz'], function () {
 		setupDZ()
 	})//ready
 
 	function setupDZ() {
+		Dropzone.autoDiscover = false
+
 		var myDropzone = new Dropzone('#upload1Cont', {
 				url: '/upload',
-				thumbnailWidth: 40,
-				thumbnailHeight: 30
+				thumbnailWidth: 60,
+				thumbnailHeight: 40,
+				addRemoveLinks: true
 			})
+		const secretProp = 'secret'
+		const folderProp = 'folder'
+
+		myDropzone.on('sending', function(file, xhr, formData) {
+			console.log('sending')
+			formData.append(secretProp, '123')
+			formData.append(folderProp, 'tmp')
+		})
+
+		myDropzone.on('sendingmultiple', function(file, xhr, formData) {
+			console.log('sendingmultiple')
+			formData.append(secretProp, '123')
+			formData.append(folderProp, 'tmp')
+		})
+
+		myDropzone.on('success', function(file, resp) {
+			console.log(file, resp)
+			myDropzone.removeFile(file)
+		})
+
+		myDropzone.on('canceled', function(file) {
+			console.log(file)
+			myDropzone.removeFile(file)
+		})
+
+		myDropzone.on('error', function(file, error) {
+			console.log(file, error)
+			myDropzone.removeFile(file)
+		})
 
 	}//()
 
