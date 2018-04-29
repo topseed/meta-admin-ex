@@ -9,8 +9,6 @@ const formidable = require('formidable')
 const os = require('os')
 const logger = require('tracer').console()
 const fse = require('fs-extra')
-const path = require('path')
-const util = require('util')
 
 import { Meta, Dirs, Bake, Items, Tag, NBake } from 'nbake/lib/Base'
 
@@ -80,43 +78,40 @@ export class Srv {
 			})
 
 			//start upload
-			form.parse(req, function(err, fields_, file_) {
+			form.parse(req, function(err, fields_, file__) {
+
+				let file = file__.file
 
 				if(err) {
 					logger.trace(err)
 					res.status( 422 ).send( err )
-					Srv.removeFile(file_)
+					Srv.removeFile(file)
 				}
 
-				logger.trace('h1')
-
-				logger.trace(util.inspect(file_))
-				let fn = file_.name
+				let fn = file.name
 				logger.trace(fn)
-
-				logger.trace('h2')
 
 				let folder = fields_[folderProp]
 				folder = Srv.mount + folder
 
-				logger.trace('h3')
+				logger.trace(folder)
 
 				try {
 					fn = folder + fn
 					logger.trace(fn)
 
-					fse.moveSync(file_, fn)
+					fse.moveSync(file.path, fn)
 				} catch(e) {
 					logger.trace(e)
 					res.status( 422 ).send( e )
 				}
 
-				logger.trace('h4')
+				logger.trace('done')
 
 				//done
 				res.status(200)
 				res.type('json')
-				res.send(fields_, file_)
+				res.send(fields_, file.name)
 
 			})
 		})//post route
@@ -126,7 +121,7 @@ export class Srv {
 	static removeFile(f) {
 		logger.trace('remove')
 		try {
-			fse.removeSync(f)
+			fse.removeSync(f.path)
 		} catch(e) {
 			logger.trace(e)
 		}

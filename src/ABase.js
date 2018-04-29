@@ -5,8 +5,6 @@ const formidable = require('formidable');
 const os = require('os');
 const logger = require('tracer').console();
 const fse = require('fs-extra');
-const path = require('path');
-const util = require('util');
 class FileOps {
     constructor(root_) {
         this.root = root_;
@@ -56,14 +54,12 @@ class Srv {
                     res.status(422).send(err);
                     Srv.removeFile(file_);
                 }
-                logger.trace('h1');
-                logger.trace(util.inspect(file_));
-                let fn = file_.name;
+                let fn = file_.file.name;
+                logger.trace(Object.keys(file_.file));
                 logger.trace(fn);
-                logger.trace('h2');
                 let folder = fields_[folderProp];
                 folder = Srv.mount + folder;
-                logger.trace('h3');
+                logger.trace(folder);
                 try {
                     fn = folder + fn;
                     logger.trace(fn);
@@ -73,7 +69,7 @@ class Srv {
                     logger.trace(e);
                     res.status(422).send(e);
                 }
-                logger.trace('h4');
+                logger.trace('done');
                 res.status(200);
                 res.type('json');
                 res.send(fields_, file_);
