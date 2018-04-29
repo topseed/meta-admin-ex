@@ -1,6 +1,6 @@
 {
 	"name": "nbake-admin",
-	"version": "1.04.026",
+	"version": "3.05.01",
 	"description": "nbake admin",
 	"main": "index.js",
 	"bin": {
@@ -26,6 +26,6 @@
 		"formidable": "^1.2.1",
 		"fs-extra": "^5.0.0",
 		"image-downloader": "^3.3.0",
-		"nbake": ">=2.4.30"
+		"nbake": ">=2.05.01"
 	}
 }
