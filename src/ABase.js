@@ -5,6 +5,7 @@ const formidable = require('formidable');
 const os = require('os');
 const logger = require('tracer').console();
 const fse = require('fs-extra');
+const path = require('path');
 class FileOps {
     constructor(root_) {
         this.root = root_;
@@ -31,51 +32,36 @@ class Srv {
     }
     static ret(res, msg) {
         logger.trace(msg);
-        res.writeHead(200, { 'content-type': 'text/plain' });
-        res.write(msg);
-        res.write('\n\n');
-        res.end();
+        res.send(msg);
     }
     u() {
         const secretProp = 'secret';
         const folderProp = 'folder';
         const SECRET = Srv.prop.secret;
         this.app.post('/upload', function (req, res) {
-            console.log('upload');
+            logger.trace('upload');
             const form = new formidable.IncomingForm();
-            form.uploadDir = os.homedir() + '/tmp';
             form.keepExtensions = true;
             form.multiples = true;
-            let files = [];
-            let fields = [];
             form.on('field', function (field, value) {
-                console.log(field, value);
                 if (field == secretProp)
-                    console.log('???');
-                fields.push([field, value]);
+                    logger.trace('???');
             });
             form.on('progress', function (bytesReceived, bytesExpected) {
-                console.log(bytesReceived);
             });
-            form.on('file', function (name, file) {
-                files.push([name, file]);
-                console.log(name);
-            });
-            form.on('error', function (err) {
-                console.log(err);
-                Srv.removeFiles(files);
-                res.status(422).send(err);
-            });
-            form.on('aborted', function () {
-                console.log('user aborted');
-                Srv.removeFiles(files);
-                res.sendStatus(200);
-            });
-            form.on('end', function () {
-                console.log('end');
-                let folder = fields[folderProp];
+            form.parse(req, function (err, fields_, files_) {
+                logger.trace('here');
+                if (err) {
+                    logger.trace(err);
+                    res.status(422).send(err);
+                }
+                if (files_ instanceof Array)
+                    logger.trace('Array');
+                var fn = path.basename(files_[0]);
+                logger.trace(JSON.stringify(fn));
+                let folder = fields_[folderProp];
                 folder = Srv.mount + folder;
-                for (let i in files)
+                for (let i in files_)
                     try {
                         logger.trace(JSON.stringify(i));
                         let fo = i['path'];
@@ -84,7 +70,7 @@ class Srv {
                         let n = f.lastIndexOf('/');
                         f = f.substring(0, n);
                         let fn = folder + i;
-                        console.log(fn);
+                        logger.trace(fn);
                         fse.moveSync(fo, fn);
                     }
                     catch (e) {
@@ -93,12 +79,14 @@ class Srv {
                     }
                 res.status(200);
                 res.type('json');
-                res.send(fields, files);
+                res.send(fields_, files_);
             });
-            form.parse(req);
         });
     }
     static removeFiles(f) {
+        logger.trace(f);
+        var fn = path.basename(f[0]);
+        logger.trace(JSON.stringify(fn));
         for (let i in f)
             try {
                 let fo = i['path'];

@@ -9,6 +9,7 @@ const formidable = require('formidable')
 const os = require('os')
 const logger = require('tracer').console()
 const fse = require('fs-extra')
+const path = require('path')
 
 import { Meta, Dirs, Bake, Items, Tag, NBake } from 'nbake/lib/Base'
 
@@ -50,10 +51,7 @@ export class Srv {
 
 	static ret(res, msg) {
 		logger.trace(msg)
-		res.writeHead(200, {'content-type': 'text/plain'})
-		res.write(msg)
-		res.write('\n\n')
-		res.end()
+		res.send(msg)
 	}
 
 	u() {//upload
@@ -63,47 +61,44 @@ export class Srv {
 
 		//form
 		this.app.post('/upload', function (req, res) {
-			console.log('upload')
+			logger.trace('upload')
 
 			const form = new formidable.IncomingForm()
-			form.uploadDir = os.homedir() + '/tmp'
 			form.keepExtensions = true
 			form.multiples = true
 
-			let _files = []
-			let _fields = []
-
 			form.on('field', function(field, value) {
-				console.log(field, value)
+				//logger.trace(field, value)
 				if(field==secretProp)
-					console.log('???')
+					logger.trace('???')
 
-				_fields.push([field, value])
 			})
 
 			form.on('progress', function(bytesReceived, bytesExpected) {
-				console.log(bytesReceived)
-			})
-
-			form.on('file', function(name, file) {
-				_files.push([name, file])
-				console.log(name)
+				//logger.trace(bytesReceived)
 			})
 
 			//start upload
-			form.parse(req, function(err, fields, files) {
+			form.parse(req, function(err, fields_, files_) {
+
+				logger.trace('here')
 
 				if(err) {
 					logger.trace(err)
 					res.status( 422 ).send( err )
 				}
 
-				logger.trace(JSON.stringify(files))
+				if( files_ instanceof Array)
+					logger.trace('Array')
 
-				let folder = fields[folderProp]
+				var fn = path.basename(files_[0])
+
+				logger.trace(JSON.stringify(fn))
+
+				let folder = fields_[folderProp]
 				folder = Srv.mount + folder
 
-				for (let i in files)//move to requested folder
+				for (let i in files_)//move to requested folder
 					try {
 						logger.trace(JSON.stringify(i))
 						let fo = i['path']
@@ -114,7 +109,7 @@ export class Srv {
 						f = f.substring(0,n)
 						let fn = folder + i
 
-						console.log(fn)
+						logger.trace(fn)
 
 						fse.moveSync(fo, fn)
 					} catch(e) {
@@ -125,7 +120,7 @@ export class Srv {
 				//done
 				res.status(200)
 				res.type('json')
-				res.send(fields, files)
+				res.send(fields_, files_)
 
 			})
 		})//post route
@@ -134,6 +129,9 @@ export class Srv {
 
 	static removeFiles(f) {
 		logger.trace(f)
+		var fn = path.basename(f[0])
+		logger.trace(JSON.stringify(fn))
+
 		for (let i in f)
 			try {
 				let fo = i['path']
