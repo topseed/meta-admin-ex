@@ -37,7 +37,6 @@ script.
 				url: '/upload',
 				thumbnailWidth: 60,
 				thumbnailHeight: 40,
-				addRemoveLinks: true,
 				uploadMultiple: false
 			})
 		const secretProp = 'secret'
@@ -45,19 +44,16 @@ script.
 
 		myDropzone.on('sending', function(file, xhr, formData) {
 			console.log('sending')
-			formData.append(secretProp, '123')
-			formData.append(folderProp, 'tmp')
-		})
 
-		myDropzone.on('sendingmultiple', function(file, xhr, formData) {
-			console.log('sendingmultiple')
-			formData.append(secretProp, '123')
-			formData.append(folderProp, 'tmp')
+			let sec = $('#upload1Cont [name="secret"]').val()
+			let folder = $('#upload1Cont [name="folder"]').val()
+			console.log(sec,folder)
+			formData.append(secretProp, sec)
+			formData.append(folderProp, folder)
 		})
 
 		myDropzone.on('success', function(file, resp) {
 			console.log(file, resp)
-			myDropzone.removeFile(file)
 		})
 
 		myDropzone.on('canceled', function(file) {
@@ -67,7 +63,6 @@ script.
 
 		myDropzone.on('error', function(file, error) {
 			console.log(file, error)
-			myDropzone.removeFile(file)
 		})
 
 	}//()

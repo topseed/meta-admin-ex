@@ -67,14 +67,12 @@ export class Srv {
 			form.multiples = false
 
 			form.on('field', function(field, value) {
-				//logger.trace(field, value)
+				logger.trace(field, value)
 				if(field==secretProp)
-					logger.trace('???')
-
-			})
-
-			form.on('progress', function(bytesReceived, bytesExpected) {
-				//logger.trace(bytesReceived)
+					if(value!=SECRET) {
+						logger.trace('wrong secret')
+						res.status(422, 'wrong secret')
+					}
 			})
 
 			//start upload
@@ -82,17 +80,25 @@ export class Srv {
 
 				let file = file__.file
 
+				let sec =fields_[secretProp]
+				if(sec!=SECRET) {
+					logger.trace('wrong secret')
+					Srv.removeFile(file)
+					return
+				}
+
 				if(err) {
 					logger.trace(err)
-					res.status( 422 ).send( err )
+					res.send( err )
 					Srv.removeFile(file)
+					return
 				}
 
 				let fn = file.name
 				logger.trace(fn)
 
 				let folder = fields_[folderProp]
-				folder = Srv.mount + folder
+				folder = Srv.mount + folder +'/'
 
 				logger.trace(folder)
 
@@ -111,7 +117,7 @@ export class Srv {
 				//done
 				res.status(200)
 				res.type('json')
-				res.send(fields_, file.name)
+				res.send(fields_ + file.name)
 
 			})
 		})//post route

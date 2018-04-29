@@ -43,27 +43,36 @@ class Srv {
             form.keepExtensions = true;
             form.multiples = false;
             form.on('field', function (field, value) {
+                logger.trace(field, value);
                 if (field == secretProp)
-                    logger.trace('???');
+                    if (value != SECRET) {
+                        logger.trace('wrong secret');
+                        res.status(422, 'wrong secret');
+                    }
             });
-            form.on('progress', function (bytesReceived, bytesExpected) {
-            });
-            form.parse(req, function (err, fields_, file_) {
+            form.parse(req, function (err, fields_, file__) {
+                let file = file__.file;
+                let sec = fields_[secretProp];
+                if (sec != SECRET) {
+                    logger.trace('wrong secret');
+                    Srv.removeFile(file);
+                    return;
+                }
                 if (err) {
                     logger.trace(err);
-                    res.status(422).send(err);
-                    Srv.removeFile(file_);
+                    res.send(err);
+                    Srv.removeFile(file);
+                    return;
                 }
-                let fn = file_.file.name;
-                logger.trace(Object.keys(file_.file));
+                let fn = file.name;
                 logger.trace(fn);
                 let folder = fields_[folderProp];
-                folder = Srv.mount + folder;
+                folder = Srv.mount + folder + '/';
                 logger.trace(folder);
                 try {
                     fn = folder + fn;
                     logger.trace(fn);
-                    fse.moveSync(file_, fn);
+                    fse.moveSync(file.path, fn);
                 }
                 catch (e) {
                     logger.trace(e);
@@ -72,14 +81,14 @@ class Srv {
                 logger.trace('done');
                 res.status(200);
                 res.type('json');
-                res.send(fields_, file_);
+                res.send(fields_ + file.name);
             });
         });
     }
     static removeFile(f) {
         logger.trace('remove');
         try {
-            fse.removeSync(f);
+            fse.removeSync(f.path);
         }
         catch (e) {
             logger.trace(e);
