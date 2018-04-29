@@ -6,6 +6,7 @@ const os = require('os');
 const logger = require('tracer').console();
 const fse = require('fs-extra');
 const path = require('path');
+const util = require('util');
 class FileOps {
     constructor(root_) {
         this.root = root_;
@@ -42,59 +43,51 @@ class Srv {
             logger.trace('upload');
             const form = new formidable.IncomingForm();
             form.keepExtensions = true;
-            form.multiples = true;
+            form.multiples = false;
             form.on('field', function (field, value) {
                 if (field == secretProp)
                     logger.trace('???');
             });
             form.on('progress', function (bytesReceived, bytesExpected) {
             });
-            form.parse(req, function (err, fields_, files_) {
-                logger.trace('here');
+            form.parse(req, function (err, fields_, file_) {
                 if (err) {
                     logger.trace(err);
                     res.status(422).send(err);
+                    Srv.removeFile(file_);
                 }
-                if (files_ instanceof Array)
-                    logger.trace('Array');
-                var fn = path.basename(files_[0]);
-                logger.trace(JSON.stringify(fn));
+                logger.trace('h1');
+                logger.trace(util.inspect(file_));
+                let fn = file_.name;
+                logger.trace(fn);
+                logger.trace('h2');
                 let folder = fields_[folderProp];
                 folder = Srv.mount + folder;
-                for (let i in files_)
-                    try {
-                        logger.trace(JSON.stringify(i));
-                        let fo = i['path'];
-                        let f = i['path'];
-                        logger.trace(f);
-                        let n = f.lastIndexOf('/');
-                        f = f.substring(0, n);
-                        let fn = folder + i;
-                        logger.trace(fn);
-                        fse.moveSync(fo, fn);
-                    }
-                    catch (e) {
-                        logger.trace(e);
-                        res.status(422).send(e);
-                    }
+                logger.trace('h3');
+                try {
+                    fn = folder + fn;
+                    logger.trace(fn);
+                    fse.moveSync(file_, fn);
+                }
+                catch (e) {
+                    logger.trace(e);
+                    res.status(422).send(e);
+                }
+                logger.trace('h4');
                 res.status(200);
                 res.type('json');
-                res.send(fields_, files_);
+                res.send(fields_, file_);
             });
         });
     }
-    static removeFiles(f) {
-        logger.trace(f);
-        var fn = path.basename(f[0]);
-        logger.trace(JSON.stringify(fn));
-        for (let i in f)
-            try {
-                let fo = i['path'];
-                fse.removeSync(fo);
-            }
-            catch (e) {
-                logger.trace(e);
-            }
+    static removeFile(f) {
+        logger.trace('remove');
+        try {
+            fse.removeSync(f);
+        }
+        catch (e) {
+            logger.trace(e);
+        }
     }
     s() {
         this.u();

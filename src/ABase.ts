@@ -10,6 +10,7 @@ const os = require('os')
 const logger = require('tracer').console()
 const fse = require('fs-extra')
 const path = require('path')
+const util = require('util')
 
 import { Meta, Dirs, Bake, Items, Tag, NBake } from 'nbake/lib/Base'
 
@@ -65,7 +66,7 @@ export class Srv {
 
 			const form = new formidable.IncomingForm()
 			form.keepExtensions = true
-			form.multiples = true
+			form.multiples = false
 
 			form.on('field', function(field, value) {
 				//logger.trace(field, value)
@@ -79,66 +80,56 @@ export class Srv {
 			})
 
 			//start upload
-			form.parse(req, function(err, fields_, files_) {
-
-				logger.trace('here')
+			form.parse(req, function(err, fields_, file_) {
 
 				if(err) {
 					logger.trace(err)
 					res.status( 422 ).send( err )
+					Srv.removeFile(file_)
 				}
 
-				if( files_ instanceof Array)
-					logger.trace('Array')
+				logger.trace('h1')
 
-				var fn = path.basename(files_[0])
+				logger.trace(util.inspect(file_))
+				let fn = file_.name
+				logger.trace(fn)
 
-				logger.trace(JSON.stringify(fn))
+				logger.trace('h2')
 
 				let folder = fields_[folderProp]
 				folder = Srv.mount + folder
 
-				for (let i in files_)//move to requested folder
-					try {
-						logger.trace(JSON.stringify(i))
-						let fo = i['path']
-						let f = i['path']
-						logger.trace(f)
+				logger.trace('h3')
 
-						let n = f.lastIndexOf('/')
-						f = f.substring(0,n)
-						let fn = folder + i
+				try {
+					fn = folder + fn
+					logger.trace(fn)
 
-						logger.trace(fn)
+					fse.moveSync(file_, fn)
+				} catch(e) {
+					logger.trace(e)
+					res.status( 422 ).send( e )
+				}
 
-						fse.moveSync(fo, fn)
-					} catch(e) {
-						logger.trace(e)
-						res.status( 422 ).send( e )
-					}
+				logger.trace('h4')
 
 				//done
 				res.status(200)
 				res.type('json')
-				res.send(fields_, files_)
+				res.send(fields_, file_)
 
 			})
 		})//post route
 
 	}//()
 
-	static removeFiles(f) {
-		logger.trace(f)
-		var fn = path.basename(f[0])
-		logger.trace(JSON.stringify(fn))
-
-		for (let i in f)
-			try {
-				let fo = i['path']
-				fse.removeSync(fo)
-			} catch(e) {
-				logger.trace(e)
-			}
+	static removeFile(f) {
+		logger.trace('remove')
+		try {
+			fse.removeSync(f)
+		} catch(e) {
+			logger.trace(e)
+		}
 	}//()
 
 	s() {//api
