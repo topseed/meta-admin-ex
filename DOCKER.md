@@ -88,6 +88,7 @@ Go back to browser and refresh the browser. Joy? We have S3 inside the container
 
 		// start node
 		pm2 start ~/nbake/node_modules/nbake-admin/index.js
+		pm2 ls
 
 Now in your browser go to http://YOUR-HOST-IP:8081
 
