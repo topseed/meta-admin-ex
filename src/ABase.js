@@ -80,7 +80,7 @@ class Srv {
                 }
                 logger.trace('done');
                 res.status(200);
-                res.send(fields_ + file.name);
+                res.send(file.name);
             });
         });
     }

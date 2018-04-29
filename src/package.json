@@ -1,6 +1,6 @@
 {
 	"name": "nbake-admin",
-	"version": "3.05.01",
+	"version": "3.05.02",
 	"description": "nbake admin",
 	"main": "index.js",
 	"bin": {
@@ -8,12 +8,12 @@
 		"nbake-admin-cli": "index.js"
 	},
 	"license": "APACHE2",
-	"author": "http://github.com/topseed/admin",
-	"bugs": "http://github.com/topseed/admin",
-	"homepage": "http://github.com/topseed/admin",
+	"author": "http://github.com/topseed",
+	"bugs": "https://github.com/topseed",
+	"homepage": "https://github.com/topseed",
 	"repository": {
 		"type": "git",
-		"url": "http://github.com/topseed/admin"
+		"url": "https://github.com/topseed"
 	},
 	"keywords": [
 		"nbake"

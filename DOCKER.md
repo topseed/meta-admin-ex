@@ -77,12 +77,13 @@ You'll need to know the project folder, I'll assume 's3'. Check that file exists
 
 Go back to browser and refresh the browser. Joy? We have S3 inside the container. The group IDE can edit S3 project. Later you can customize the IDE.
 
-5. Last step: install nbake web admin on port 8081 so we can ask for a build:
+5. Last step: install nbake web admin on port 8081 so we can ask for a build. This is for
+- http://npmjs.com/package/nbake-admin
 
 		cd /root/nbake
 
 		// optional, get latest version in the container of the source code from this git project's asrc/ :
-		npm update
+		npm i nbake-admin
 
 		//edit cofig.yaml as needed. It has the secret code to use for the admin and points where the S3 is. Change the secret code
 
