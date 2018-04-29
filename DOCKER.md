@@ -1,6 +1,8 @@
 # nbake-admin setup
 
 
+Only once you are comfortable w/S3. 
+
 It should take about half an hour first time you setup a docker container it, here we go:
 
 1. You need a host, for Docker, there are two dozen hosting providers where you can install a Docker host.
