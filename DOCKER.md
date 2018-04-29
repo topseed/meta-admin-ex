@@ -82,8 +82,8 @@ Go back to browser and refresh the browser. Joy? We have S3 inside the container
 
 		cd /root/nbake
 
-		// optional, get latest version in the container of the source code from this git project's asrc/ :
-		npm i nbake-admin
+		// get latest version in the container of the source code from this git project's asrc/ :
+		npm update nbake-admin
 
 		//edit cofig.yaml as needed. It has the secret code to use for the admin and points where the S3 is. Change the secret code
 
