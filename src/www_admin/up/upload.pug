@@ -1,8 +1,11 @@
+script(src='//cdn.jsdelivr.net/npm/dropzone@5.4.0/dist/min/dropzone.min.js')
+script.
+		Dropzone.autoDiscover = false
 
 p
-#upload1Cont.ui.segment
+.ui
 
-	.ui.form
+	form#upload1Cont.ui.form.dropzone(action='/upload')
 		h4.ui.dividing.header Upload
 		.field
 			label Secret
@@ -19,8 +22,7 @@ p
 
 script.
 	loadjs([
-		'//cdn.jsdelivr.net/npm/dropzone@5.4.0/dist/min/dropzone.min.js'
-		,'//cdn.jsdelivr.net/npm/dropzone@5.4.0/dist/min/dropzone.min.css'
+		'//cdn.jsdelivr.net/npm/dropzone@5.4.0/dist/min/dropzone.min.css'
 		//, '//cdn.jsdelivr.net/npm/riot@3.9.1/riot.js'
 	], 'dz' /* bundle ID */, {
 		async: false //required due to loadjs bug with bundles
@@ -31,12 +33,9 @@ script.
 	})//ready
 
 	function setupDZ() {
-		Dropzone.autoDiscover = false
 
-		var myDropzone = new Dropzone('#upload1Cont', {
+		let myDropzone = new Dropzone('#upload1Cont', {
 				url: '/upload',
-				thumbnailWidth: 60,
-				thumbnailHeight: 40,
 				uploadMultiple: false
 			})
 		const secretProp = 'secret'
@@ -64,5 +63,10 @@ script.
 		myDropzone.on('error', function(file, error) {
 			console.log(file, error)
 		})
+
+		function clearAll() {
+			myDropzone.files
+
+		}
 
 	}//()

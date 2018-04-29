@@ -72,11 +72,12 @@ class Srv {
                 try {
                     fn = folder + fn;
                     logger.trace(fn);
-                    fse.moveSync(file.path, fn);
+                    fse.moveSync(file.path, fn, { overwrite: true });
                 }
                 catch (e) {
                     logger.trace(e);
                     res.status(422).send(e);
+                    return;
                 }
                 logger.trace('done');
                 res.status(200);

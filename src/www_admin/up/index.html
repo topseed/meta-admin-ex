@@ -14,9 +14,9 @@
 	.toc.item {
 		display: none !important;
 	}
-}</style><div class="pusher"><p></p><br><p></p><div class="ui text container"><p></p><p></p><div class="ui segment" id="upload1Cont"><div class="ui form"><h4 class="ui dividing header">Upload</h4><div class="field"><label>Secret</label><input type="text" name="secret" placeholder="123"></div><div class="field"><label>Target folder</label><input type="text" name="folder" placeholder="item/one"></div><p></p><br><p>(Drag and ) Drop files here to upload.</p></div></div><script>loadjs([
-	'//cdn.jsdelivr.net/npm/dropzone@5.4.0/dist/min/dropzone.min.js'
-	,'//cdn.jsdelivr.net/npm/dropzone@5.4.0/dist/min/dropzone.min.css'
+}</style><div class="pusher"><p></p><br><p></p><div class="ui text container"><p></p><script src="//cdn.jsdelivr.net/npm/dropzone@5.4.0/dist/min/dropzone.min.js"></script><script>Dropzone.autoDiscover = false
+</script><p></p><div class="ui"><form class="ui form dropzone" id="upload1Cont" action="/upload"><h4 class="ui dividing header">Upload</h4><div class="field"><label>Secret</label><input type="text" name="secret" placeholder="123"></div><div class="field"><label>Target folder</label><input type="text" name="folder" placeholder="item/one"></div><p></p><br><p>(Drag and ) Drop files here to upload.</p></form></div><script>loadjs([
+	'//cdn.jsdelivr.net/npm/dropzone@5.4.0/dist/min/dropzone.min.css'
 	//, '//cdn.jsdelivr.net/npm/riot@3.9.1/riot.js'
 ], 'dz' /* bundle ID */, {
 	async: false //required due to loadjs bug with bundles
@@ -27,12 +27,9 @@ loadjs.ready(['site','dz'], function () {
 })//ready
 
 function setupDZ() {
-	Dropzone.autoDiscover = false
 
-	var myDropzone = new Dropzone('#upload1Cont', {
+	let myDropzone = new Dropzone('#upload1Cont', {
 			url: '/upload',
-			thumbnailWidth: 60,
-			thumbnailHeight: 40,
 			uploadMultiple: false
 		})
 	const secretProp = 'secret'
@@ -60,6 +57,11 @@ function setupDZ() {
 	myDropzone.on('error', function(file, error) {
 		console.log(file, error)
 	})
+
+	function clearAll() {
+		myDropzone.files
+
+	}
 
 }//()</script></div><script>loadjs.ready('site', function () {
 	console.log('page 1 script here')
