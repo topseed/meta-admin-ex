@@ -14,32 +14,9 @@
 	.toc.item {
 		display: none !important;
 	}
-}</style><div class="pusher"><p></p><br><p></p><div class="ui text container"><p></p><p></p><div class="ui segment" id="upload1Cont"><div class="ui form" id="upload1"><h4 class="ui dividing header">Upload</h4><div class="field"><label>Secret</label><input type="text" name="secret" placeholder="123"></div><div class="field"><label class="green button">Choose file(s)</label><input class="upBut" type="file" name="file" multiple="multiple"></div><div class="field"><label>Target folder</label><input type="text" name="folder" placeholder="item/one"></div><div class="previews"></div><div class="ui message hidden"></div><button class="ui button" type="submit">Upload</button></div></div><!-- #previews.table.table-striped#previewTemplate.file-row
-	// This is used as the file preview template
-	div
-		span.preview
-			img(data-dz-thumbnail='')
-	div
-		p.name(data-dz-name='')
-		strong.error.text-danger(data-dz-errormessage='')
-	div
-		p.size(data-dz-size='')
-		.progress.progress-striped.active(role='progressbar', aria-valuemin='0', aria-valuemax='100', aria-valuenow='0')
-			.progress-bar.progress-bar-success(style='width:0%;', data-dz-uploadprogress='')
-	div
-		button.btn.btn-primary.start
-			i.glyphicon.glyphicon-upload
-			span Start
-		button.btn.btn-warning.cancel(data-dz-remove='')
-			i.glyphicon.glyphicon-ban-circle
-			span Cancel
-		button.btn.btn-danger.delete(data-dz-remove='')
-			i.glyphicon.glyphicon-trash
-			span Delete
---><script>loadjs([
+}</style><div class="pusher"><p></p><br><p></p><div class="ui text container"><p></p><p></p><div class="ui segment" id="upload1Cont"><div class="ui form"><h4 class="ui dividing header">Upload</h4><div class="field"><label>Secret</label><input type="text" name="secret" placeholder="123"></div><div class="field"><label>Target folder</label><input type="text" name="folder" placeholder="item/one"></div><p>Drop files here to upload.</p></div></div><script>loadjs([
 	'//cdn.jsdelivr.net/npm/dropzone@5.4.0/dist/min/dropzone.min.js'
-	//,'//cdn.jsdelivr.net/npm/dropzone@5.4.0/dist/min/dropzone.min.css'
-	//, '//cdn.jsdelivr.net/npm/riot@3.9.1/riot.js'
+	, '//cdn.jsdelivr.net/npm/riot@3.9.1/riot.js'
 ], 'dropzone' /* bundle ID */, {
 	async: false //required due to loadjs bug with bundles
 })
@@ -48,52 +25,55 @@ loadjs.ready(['site','dropzone'], function () {
 	setupDZ()
 })//ready
 
-
 function setupDZ() {
-	var myDropzone = new Dropzone('#upload1Cont', { // Make the whole body a dropzone
-		url: '/upload', // Set the url
-		thumbnailWidth: 80,
-		thumbnailHeight: 80,
-		parallelUploads: 20,
-		previewTemplate: '.previewTemplate',
-		autoQueue: false, // Make sure the files aren't queued until manually added
-		previewsContainer: '.previews', // Define the container to display the previews
-		clickable: '.upBut' // Define the element that should be used as click trigger to select files.
-	})
+	var myDropzone = new Dropzone('#upload1Cont', {
+			url: '/upload',
+			thumbnailWidth: 40,
+			thumbnailHeight: 30
+		})
 
-	myDropzone.on('addedfile', function(file) {
-		// Hookup the start button
-		file.previewElement.querySelector('.start').onclick = function() { myDropzone.enqueueFile(file) }
-	})
+}//()
+</script><!--function setupDZ() {var myDropzone = new Dropzone('#upload1Cont', { // Make the whole body a dropzone
+	url: '/upload', // Set the url
 
-	// Update the total progress bar
-	myDropzone.on('totaluploadprogress', function(progress) {
-		document.querySelector('#total-progress .progress-bar').style.width = progress + '%'
-	})
+	parallelUploads: 20,
+	previewTemplate: '.previewTemplate',
+	autoQueue: false, // Make sure the files aren't queued until manually added
+	previewsContainer: '.previews', // Define the container to display the previews
+	clickable: '.upBut' // Define the element that should be used as click trigger to select files.
+})
 
-	myDropzone.on('sending', function(file) {
-		// Show the total progress bar when upload starts
-		document.querySelector('#total-progress').style.opacity = '1'
-		// And disable the start button
-		file.previewElement.querySelector('.start').setAttribute('disabled', 'disabled')
-	})
+myDropzone.on('addedfile', function(file) {
+	// Hookup the start button
+	file.previewElement.querySelector('.start').onclick = function() { myDropzone.enqueueFile(file) }
+})
 
-	// Hide the total progress bar when nothing's uploading anymore
-	myDropzone.on('queuecomplete', function(progress) {
-		document.querySelector('#total-progress').style.opacity = '0'
-	})
+// Update the total progress bar
+myDropzone.on('totaluploadprogress', function(progress) {
+	document.querySelector('#total-progress .progress-bar').style.width = progress + '%'
+})
 
-	// setup the buttons
-	// The 'add files' button doesn't need to be setup because the config
-	// `clickable` has already been specified.
-	document.querySelector('#actions .start').onclick = function() {
-		myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
-	}
-	document.querySelector('#actions .cancel').onclick = function() {
-		myDropzone.removeAllFiles(true)
-	}
+myDropzone.on('sending', function(file) {
+	// Show the total progress bar when upload starts
+	document.querySelector('#total-progress').style.opacity = '1'
+	// And disable the start button
+	file.previewElement.querySelector('.start').setAttribute('disabled', 'disabled')
+})
 
-}//()</script></div><script>loadjs.ready('site', function () {
+// Hide the total progress bar when nothing's uploading anymore
+myDropzone.on('queuecomplete', function(progress) {
+	document.querySelector('#total-progress').style.opacity = '0'
+})
+
+// setup the buttons
+// The 'add files' button doesn't need to be setup because the config
+// `clickable` has already been specified.
+document.querySelector('#actions .start').onclick = function() {
+	myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
+}
+document.querySelector('#actions .cancel').onclick = function() {
+	myDropzone.removeAllFiles(true)
+}--></div><script>loadjs.ready('site', function () {
 	console.log('page 1 script here')
 })</script></div><script src="/assets/js/setup.js"></script><link rel="stylesheet" href="/assets/Semantic-UI/dist/semantic.min.css" onload="cssLoaded()"><script>//above is for fast loading
 //- see https://github.com/muicss/loadjs

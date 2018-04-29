@@ -84,7 +84,10 @@ class Srv {
                     catch (e) {
                         logger.trace(e);
                     }
-                res.redirect('/upDone/?files=' + files);
+                res.writeHead(200, { 'content-type': 'text/plain' });
+                res.write('received fields:\n\n ' + (fields));
+                res.write('\n\n');
+                res.end('received files:\n\n ' + (files));
             });
             form.parse(req);
         });
