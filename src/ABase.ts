@@ -70,15 +70,15 @@ export class Srv {
 			form.keepExtensions = true
 			form.multiples = true
 
-			let files = []
-			let fields = []
+			let _files = []
+			let _fields = []
 
 			form.on('field', function(field, value) {
 				console.log(field, value)
 				if(field==secretProp)
 					console.log('???')
 
-				fields.push([field, value])
+				_fields.push([field, value])
 			})
 
 			form.on('progress', function(bytesReceived, bytesExpected) {
@@ -86,26 +86,18 @@ export class Srv {
 			})
 
 			form.on('file', function(name, file) {
-				files.push([name, file])
+				_files.push([name, file])
 				console.log(name)
 			})
 
-			form.on('error', function(err) {
-				console.log(err)
-				Srv.removeFiles(files)
-				res.status( 422 ).send( err )
-			})
+			//start upload
+			form.parse(req, function(err, fields, files) {
 
-			form.on('aborted', function() {
-				console.log('user aborted')
-				Srv.removeFiles(files)
-				res.sendStatus( 200 )
-			})
+				if(err) {
+					logger.trace(err)
+					res.status( 422 ).send( err )
+				}
 
-			form.on('end', function() {
-				console.log('end')
-
-				logger.trace(files)
 				logger.trace(JSON.stringify(files))
 
 				let folder = fields[folderProp]
@@ -113,9 +105,18 @@ export class Srv {
 
 				for (let i in files)//move to requested folder
 					try {
+						logger.trace(JSON.stringify(i))
+						let fo = i['path']
+						let f = i['path']
+						logger.trace(f)
+
+						let n = f.lastIndexOf('/')
+						f = f.substring(0,n)
 						let fn = folder + i
+
 						console.log(fn)
-						fse.moveSync(i, fn)
+
+						fse.moveSync(fo, fn)
 					} catch(e) {
 						logger.trace(e)
 						res.status( 422 ).send( e )
@@ -125,18 +126,18 @@ export class Srv {
 				res.status(200)
 				res.type('json')
 				res.send(fields, files)
-			})
 
-			//start upload
-			form.parse(req)
+			})
 		})//post route
 
 	}//()
 
 	static removeFiles(f) {
+		logger.trace(f)
 		for (let i in f)
 			try {
-				fse.removeSync(i)
+				let fo = i['path']
+				fse.removeSync(fo)
 			} catch(e) {
 				logger.trace(e)
 			}

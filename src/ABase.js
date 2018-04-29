@@ -73,15 +73,19 @@ class Srv {
             });
             form.on('end', function () {
                 console.log('end');
-                logger.trace(files);
-                logger.trace(JSON.stringify(files));
                 let folder = fields[folderProp];
                 folder = Srv.mount + folder;
                 for (let i in files)
                     try {
+                        logger.trace(JSON.stringify(i));
+                        let fo = i['path'];
+                        let f = i['path'];
+                        logger.trace(f);
+                        let n = f.lastIndexOf('/');
+                        f = f.substring(0, n);
                         let fn = folder + i;
                         console.log(fn);
-                        fse.moveSync(i, fn);
+                        fse.moveSync(fo, fn);
                     }
                     catch (e) {
                         logger.trace(e);
@@ -97,7 +101,8 @@ class Srv {
     static removeFiles(f) {
         for (let i in f)
             try {
-                fse.removeSync(i);
+                let fo = i['path'];
+                fse.removeSync(fo);
             }
             catch (e) {
                 logger.trace(e);
