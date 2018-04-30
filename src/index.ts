@@ -44,7 +44,18 @@ function itemize(dir) {
 }
 
 // /////////////////////////////////////////////////////////////////
-let config = yaml.load(fs.readFileSync('config.yaml'))
+const commandLineArgs = require('command-line-args')
+
+const optionDefinitions = [
+	{ name: 'admin',  type: String, defaultOption: true},
+
+]
+const argsParsed = commandLineArgs(optionDefinitions)
+let arg:string = argsParsed.admin
+arg = arg +'/admin.yaml'
+console.log(arg)
+
+let config = yaml.load(fs.readFileSync(arg))
 console.log(config)
 
 const srv = new Srv(bake, itemize, config)

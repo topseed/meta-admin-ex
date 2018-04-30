@@ -1,7 +1,7 @@
 # nbake-admin setup
 
 
-Only once you are comfortable w/S3. 
+Only once you are comfortable w/S3.
 
 It should take about half an hour first time you setup a docker container it, here we go:
 
@@ -77,6 +77,8 @@ You'll need to know the project folder, I'll assume 's3'. Check that file exists
 		// check to see your S3 webapp files
 		ls ~/workspace/s3
 
+		//come back later and setup http://github.com/kahing/catfs
+
 Go back to browser and refresh the browser. Joy? We have S3 inside the container. The group IDE can edit S3 project. Later you can customize the IDE.
 
 5. Last step: install nbake web admin on port 8081 so we can ask for a build. This is for
@@ -89,8 +91,8 @@ Go back to browser and refresh the browser. Joy? We have S3 inside the container
 
 		//edit cofig.yaml as needed. It has the secret code to use for the admin and points where the S3 is. Change the secret code
 
-		// start node
-		pm2 start ~/nbake/node_modules/nbake-admin/index.js
+		// start node, tell it where admin.yaml is
+		pm2 start ~/nbake/node_modules/nbake-admin/index.js ~/nbake
 		pm2 ls
 
 Now in your browser go to http://YOUR-HOST-IP:8081
@@ -98,6 +100,6 @@ Now in your browser go to http://YOUR-HOST-IP:8081
 You should be able to build a folder/page that you edited.
 
 
-
+Note: if you don't commit your container, it will reset, it is a docker feature.
 
 
