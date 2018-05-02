@@ -6,7 +6,9 @@ Only once you are comfortable w/S3.
 It should take about half an hour first time you setup a docker container it, here we go:
 
 1. You need a host, for Docker, there are two dozen hosting providers where you can install a Docker host.
-So now that you picked a host, ssh (ex: putty) and install Docker CE (Community Eddition) on your host (ex: vultr.com, Vultr also has Windows Docker hosts in case you like that. ). Also it goes without saying you should secure you Docker host, run docker as non-root, etc.
+So now that you picked a host, ssh (ex: putty) and install Docker CE (Community Eddition) on your host (ex: vultr.com, Vultr also has Windows for Docker hosts in case you like that more than linux ssh
+- http://vultr.com/docs/how-to-connect-to-windows-server-with-rdp
+ ). Also it goes without saying you should secure you Docker host, run docker as non-root, etc.
 
 
 2. Once Docker is installed, lets donwload a working container image for nbake admin:
