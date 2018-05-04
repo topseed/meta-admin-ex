@@ -1,0 +1,13 @@
+{
+	"name": "my--admin",
+	"version": "0.05.06",
+	"description": "meta nbake admin",
+	"main": "index.js",
+	"bin": {
+		"my-admin": "index.js"
+	},
+	"dependencies": {
+		"meta-admin": ">=3.05.06",
+		"formidable": "^1.2.1"
+	}
+}

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const Base_1 = require("nbake/lib/Base");
-const ABase_1 = require("./ABase");
+const ABase_1 = require("meta-admin/lib/ABase");
 const os = require('os');
 const fs = require('fs');
 const download = require('image-downloader');
