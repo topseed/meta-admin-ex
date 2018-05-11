@@ -1,5 +1,5 @@
 ( if maintainer, edit index js to use package
- const ABase_1 = require("meta-admin")
+	import { Srv, FileOps } from 'meta-admin/lib/ABase'
  )
 
 npm i

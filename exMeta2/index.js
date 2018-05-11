@@ -1,7 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+
+
 const Base_1 = require("nbake/lib/Base");
-const meta_admin_1 = require("meta-admin");
+const ABase_1 = require("meta-admin/lib/ABase");
 const os = require('os');
 const fs = require('fs');
 const download = require('image-downloader');
@@ -50,6 +50,6 @@ arg = arg + '/admin.yaml';
 console.log(arg);
 let config = yaml.load(fs.readFileSync(arg));
 console.log(config);
-const srv = new meta_admin_1.Srv(bake, itemize, tags, config);
+const srv = new ABase_1.Srv(bake, itemize, tags, config);
 srv.apiSetup();
 srv.start();

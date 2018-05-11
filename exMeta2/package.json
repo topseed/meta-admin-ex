@@ -1,6 +1,6 @@
 {
 	"name": "my--admin",
-	"version": "0.05.06",
+	"version": "0.01.01",
 	"description": "meta nbake admin",
 	"main": "index.js",
 	"bin": {
