@@ -1,33 +1,33 @@
 
 p
 .ui.segment
-	#nb1.ui.form
-		h4.ui.dividing.header NBake
+	#i1.ui.form.small
+		h4.ui.dividing.header NBake Items
 		.field
 			label Folder
 			input(type='text', name='folder', placeholder='blog')
 
 		.ui.message.hidden
-		button.ui.button(type='submit') NBake
-
+		button.ui.button(type='submit') Items
 
 script.
 	loadjs.ready('site', function () {
-		$('#nb1 .button').click(function(){
+		$('#i1 .button').click(function(){
 			let sec = $('#Pform [name="secret"]').val()
-			let folder = $('#nb1 [name="folder"]').val()
+			let folder = $('#i1 [name="folder"]').val()
 
-			callNb(sec,folder)
+			calli(sec, folder)
 		})//click
 	})//ready
 
-	function callNb(sec, folder_) {
-		console.log('calling nbake ...')
-		$('#nb1 .message').text('called')
-		$('#nb1 .message').removeClass('hidden')
+	function calli(sec, folder_) {
+		console.log('calling ...')
+		$('#i1 .message').text('called')
+		$('#i1 .message').removeClass('hidden')
 
-		let url = '/bake?secret='
+		let url = '/api/items?secret='
 		let folder = '&folder='
+
 		url = url + sec + folder + folder_
 		console.log(url)
 
@@ -36,10 +36,10 @@ script.
 				return resp.text()
 			}).then(function(txt) {
 				console.log(txt)
-				$('#nb1 .message').text(txt)
+				$('#i1 .message').text(txt)
 			}).catch(function(err) {
 				console.log('error',err)
-				$('#nb1 .message').text('ERROR: ', err)
+				$('#i1 .message').text('ERROR: ', err)
 		})//fetch
 
-	}//call()
+	}//callNb()

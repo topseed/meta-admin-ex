@@ -1,7 +1,7 @@
 
 p
 .ui.segment
-	#clone1.ui.form
+	#clone1.ui.form.small
 		h4.ui.dividing.header Clone (new page)
 		.field
 			label Source
@@ -30,7 +30,7 @@ script.
 		$('#clone1 .message').text('called')
 		$('#clone1 .message').removeClass('hidden')
 
-		let url = '/clone?secret='
+		let url = '/api/clone?secret='
 		let src = '&src='
 		let dest = '&dest='
 
