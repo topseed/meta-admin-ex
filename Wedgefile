@@ -1,0 +1,4 @@
+:8080
+gzip
+root dev
+tls off
