@@ -1,10 +1,9 @@
-# nbake-admin and services setup
+# nbake-admin setup
 
-0. You should have deployed a static 'nbake' app. - and be able to access the files via FTP.
 
-1. Install docker on a remote host via one click install provider. You need a host, for Docker, there are two dozens hosting providers offering Docker hosting, vultr or Digital Ocean - they provide a
-one click install. You should pick a location very close to your development team, and likely run two hosts: ex: LA and NYC or sports and other. Or a Webmaster can install Docker in the DMZ of your company.
-So: sign up ($5) for a host that has docker installed and connect to the host. If linux SSH if Windows host: RDS is commonom.
+
+1. You need a host, for Docker, there are two dozen hosting providers offering Docker, including Zeit, host.sh, vultr or Digital Ocean - they provide a
+one click install.
 
 
 2. Once Docker is installed, lets donwload a working container image for nbake admin:
@@ -13,32 +12,18 @@ So: sign up ($5) for a host that has docker installed and connect to the host. I
 		docker pull nbake/nbake:latest
 
 		// start that app container with ports 8080 for IDE and 8081 for admin:
-		docker run -d nbake/nbake /sbin/my_init
-
 		docker run -d --privileged -p 8080:8080 -p 8081:8081 nbake/nbake /sbin/my_init
 
 		// get the container PID
 		docker ps
 
 		//enter the container
-		docker exec -ti xYOUR-PIDx /bin/bash
+		docker exec -ti YOUR-PID /bin/bash
 
-		// now you are inside the container:
+		// now inside the container:
 		cd root
 		ls -la
 
-		//and you may what to check the speed of the Docker host provider
-		pip install speedtest-cli
-		speedtest-cli
-
-You should now have a container where you can run node, for admin or any service that you can't do purley client side. 
-
-
-3.
-
-
-
-3. Codiad:
 		//start PHP
 		nohup /root/bin/php-fpm &
 		(enter)
@@ -47,8 +32,9 @@ You should now have a container where you can run node, for admin or any service
 		cat ~/Caddyfile
 		caddy &
 
+So far we started the free Codiad IDE in the container.
 
- Now open your browser (Chrome is best, it supports QUIC and so does Caddy), by going to http://YOUR-HOST-IP:8080
+3. Now open your browser (Chrome is best, it supports QUIC and so does Caddy), by going to http://YOUR-HOST-IP:8080
 
 - From the browser, make a new project 's3' in folder 's3' - and click 'install'.
 
@@ -60,6 +46,37 @@ You should now have a container where you can run node, for admin or any service
 
 You'll need to know the project folder, I'll assume 's3'. Check that file exists in the ~/workspace.
 
+4. Now goofYs to map to your 'S3', where the webapp is:
+
+		//edit your credentials [other2] part is very optional, if you have other S3 or other buckets:
+		cat ~/.aws/credentials
+		[default]
+		aws_access_key_id = KEY
+		aws_secret_access_key = SECRET
+		[other2]
+		aws_access_key_id = KEY2
+		aws_secret_access_key = SECRET2
+
+		//also optional, install 'aws cli', we don't use it, but some people like it
+		pip install awscli
+
+		//and you may what to check the speed of the Docker host provider
+		pip install speedtest-cli
+		speedtest-cli
+
+		//remove the project file created above
+		rm -rf ~/workspace/s3
+		mkdir ~/workspace/s3
+
+		// mount your S3 bucket there, use your BUCKET-NAME
+		/root/goofys --profile default -o allow_other --use-content-type BUCKET-NAME /var/www/html/workspace/s3
+
+		// check to see your S3 webapp files
+		ls ~/workspace/s3
+
+		//come back later and setup http://github.com/kahing/catfs
+
+Go back to browser and refresh the browser. Joy? We have S3 inside the container. The group IDE can edit S3 project. Later you can customize the IDE.
 
 5. Last step: install nbake web admin on port 8081 so we can ask for a build. This is for
 - http://npmjs.com/package/nbake-admin

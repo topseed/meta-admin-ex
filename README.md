@@ -1,24 +1,12 @@
 # nbake web admin
 
-For webmasters, install this to admin and build your S3 & markup(Pug) based webapp.  It also lets you continously build the pug on your S3 hosted webapp.
-
-IMPORTANT: While webmaster is the one to install this, the user is: a tech manager or admin.
+F
 
 - http://hub.docker.com/r/nbake/nbake
 
 
-<img src="https://raw.githubusercontent.com/topseed/nbake-admin/master/admin.PNG" width=600>
 
-
-If you know how to install LAMP, then a webmaster should be able to do this docker based install.
-If you don't want to set this up by self, at the bottom of this doc, there are commercial vendors that will setup it for you, cheap and on demand.
-It has to be setup, since it needs to point to your S3 bucket.
-
-Pre-requsites:
-Beforehand, you should have S3 host, key, secret and bucket-name and tested
-the password works. Ex: Upload a sample webapp via CyberDuck (FTP) - before you start the admin install. And you should be able to access your website from a browser.
-Check http://github.com/topseed/nbake-user first. Let it soak a day. ie, don't try to get the admin docker working if you just got S3 website working, take a break.
-
+You should have FTP (or S3 working already)
 
 Benfits of admin:
 - The source code stays in the cloud, not laptop that admins or developers take home.
