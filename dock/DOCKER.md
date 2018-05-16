@@ -1,10 +1,15 @@
 # nbake-admin and services setup
 
+You can run the admin locally, by just running node of exMeta2. But it's meant for the cloud where it can be leveraged.
+
 0. You should have deployed a static 'nbake' app. - and be able to access the files via FTP.
 
-1. Install docker on a remote host via one click install provider. You need a  Docker, there are two dozens hosting providers offering Docker hosting, vultr or Digital Ocean - they provide a
-one click install. You should pick a location very close to your development team, and likely run two hosts: ex: LA and NYC or sports and other. Or a Webmaster can install Docker in the DMZ of your company.
+1. Install docker on a remote host via one click install provider, or a windows provider - where you can install docker via GUO. There are two dozens hosting providers offering Docker hosting, vultr or Digital Ocean - they provide a
+one click install. You should pick a location close to your development team, and likely run two hosts: ex: LA and NYC or sports and other. Or a Webmaster can install Docker in the DMZ of your company.
 So: sign up ($5) for a host that has docker installed and connect to the host. If linux SSH, if Windows RDS.
+
+Note: Your docker admin is per app. It is not multi-tenant. For example you can have 2 dockers per app, but you can't have one docker manage two apps. That has not been tested yet - but should work.
+
 
 2. Once Docker is installed, lets donwload a working container image for nbake admin:
 
@@ -14,7 +19,7 @@ So: sign up ($5) for a host that has docker installed and connect to the host. I
 		// start that app container with ports 8080 for IDE and 8081 for admin:
 		docker run -d nbake/nbake /sbin/my_init
 
-		docker run -d --privileged -p 52022:22 -p 8080:8080 -p 8081:8081 nbake/nbake /sbin/my_init
+		docker run -d --privileged -p 20-21:20-21 -p 8080-8082:8080-8082 nbake/nbake /sbin/my_init
 
 		// get the container PID
 		docker ps
@@ -32,41 +37,65 @@ So: sign up ($5) for a host that has docker installed and connect to the host. I
 
 You should now have a container where you can run node, for admin or any service that you can't do purley client side.
 
-3. Mount the ftp drive of admin - from your PC
+3. From your PC, Mount the ftp drive of admin(what is inside of the docker host); the first connection
+
+		//change the password for the admin user (in /home/admin)
+		passwd admin
+
+		//start ftp server
+		nohup vsftpd&
+
+		// ftp connect to the docker admin folder, ex: using cyberduck or any ftp client
+
+		// Optional: connect to the docker admin folder by mounting local pc drive to it - from pc to docker
+		// pick a tool you like, there are many, some are
+			http://mountainduck.io
+			http://nsoftware.com/netdrive/sftp/download.aspx
+			http://netdrive.net/store
+			http://expandrive.com/apps/expandrive
+			http://github.com/dokan-dev/dokan-sshfs
+			Dokan
+			webdrive
 
 
+		// upload your admin app, ex: http://github.com/topseed/meta-admin-ex/tree/master/release
 
-4. Month the ftp drive of the app
+		// unzip the tool in /home/admin, ideally www_admin ends up in /home/admin/www_admin
 
-	cd /root/admin
+		// you can edit the node express admin app as you wish, and ftp or mount to 'deploy'.
 
-	sshfs -o allow_other,defer_permissions root@xxx.xxx.xxx.xxx:/ /mnt/droplet
+4. Now the second connection: from admin to the ftp static server. Mounting the ftp drive of the app in docker.
 
+	// use the ftp user name and address of your static site
+	sshfs -o allow_other user_name@xxx.xxx.xxx.xxx:/ /home/admin/mnt
 
-5. Get the latest version of the example admin app:
- http://github.com/topseed/meta-admin-ex/tree/master/exMeta2
+	// list your app
+	ls /home/admin/mnt
 
+	// edit admin.yaml as needed.
 
-# ssh server
-https://help.ubuntu.com/lts/serverguide/openssh-server.html
+	// follow readme.txt (npm i, node index.js)
 
+	pm2 start index.js
 
-
-6. Last step: install nbake web admin on port 8081 so we can ask for a build. This is for
-
-		//edit cofig.yaml as needed. It has the secret code to use for the admin and points where the S3 is. Change the secret code
-
-		// start node, tell it where admin.yaml is
-		pm2 start ~/nbake/node_modules/nbake-admin/index.js -- ~/nbake-admin
-		pm2 ls
+6.
 
 Now in your browser go to http://YOUR-HOST-IP:8081
+That is not your app, that your admin app.
 
-You should be able to build a folder/page that you edited.
+You should be able to build a folder/page that you edited of the web app.
+So, there is the webapp you host staticaly, that you edit in the webadmin tool.
+
+Also, of course, you can edit your admin express app.
+
+Two apps.
 
 
+# Optional.
 
-# Optional
+There are 3rd party web IDE you should try.
+But a free one:
+
 ## Codiad:
 		//start PHP
 		nohup /root/bin/php-fpm &

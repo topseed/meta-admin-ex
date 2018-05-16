@@ -1,4 +1,7 @@
 
+
+// the package.json uses meta-admin library
+
 npm i
 
 edit admin.yaml
