@@ -31,14 +31,38 @@ So: sign up ($5) for a host that has docker installed and connect to the host. I
 		pip install speedtest-cli
 		speedtest-cli
 
-You should now have a container where you can run node, for admin or any service that you can't do purley client side. 
+You should now have a container where you can run node, for admin or any service that you can't do purley client side.
 
 
-3.
+3. Mount the ftp drive of admin
+
+4. Month the ftp drive of the app
+
+5. Get the latest version of the example admin app:
+ http://github.com/topseed/meta-admin-ex/tree/master/exMeta2
+
+
+# ssh server
+https://help.ubuntu.com/lts/serverguide/openssh-server.html
 
 
 
-3. Codiad:
+5. Last step: install nbake web admin on port 8081 so we can ask for a build. This is for
+
+		//edit cofig.yaml as needed. It has the secret code to use for the admin and points where the S3 is. Change the secret code
+
+		// start node, tell it where admin.yaml is
+		pm2 start ~/nbake/node_modules/nbake-admin/index.js -- ~/nbake-admin
+		pm2 ls
+
+Now in your browser go to http://YOUR-HOST-IP:8081
+
+You should be able to build a folder/page that you edited.
+
+
+
+# Optional
+## Codiad:
 		//start PHP
 		nohup /root/bin/php-fpm &
 		(enter)
@@ -59,27 +83,4 @@ You should now have a container where you can run node, for admin or any service
 - Now exit browser and go back to the ssh.
 
 You'll need to know the project folder, I'll assume 's3'. Check that file exists in the ~/workspace.
-
-
-5. Last step: install nbake web admin on port 8081 so we can ask for a build. This is for
-- http://npmjs.com/package/nbake-admin
-
-		cd /root/nbake-admin
-
-		// get latest version in the container of the source code from this git project's asrc/ :
-		npm update nbake-admin
-
-		//edit cofig.yaml as needed. It has the secret code to use for the admin and points where the S3 is. Change the secret code
-
-		// start node, tell it where admin.yaml is
-		pm2 start ~/nbake/node_modules/nbake-admin/index.js -- ~/nbake-admin
-		pm2 ls
-
-Now in your browser go to http://YOUR-HOST-IP:8081
-
-You should be able to build a folder/page that you edited.
-
-
-Note: if you don't commit your container, it will reset, it is a docker feature.
-
 
