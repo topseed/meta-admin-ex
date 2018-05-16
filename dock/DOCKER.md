@@ -67,7 +67,7 @@ You should now have a container where you can run node, for admin or any service
 4. Now the second connection: from admin to the ftp static server. Mounting the ftp drive of the app in docker.
 
 	// use the ftp user name and address of your static site
-	
+	( edit http://github.com/topseed/meta-admin-ex/blob/master/exMeta2/mnt.sh to be like )
 	
 	sshfs -o allow_other user_name@xxx.xxx.xxx.xxx:/ /home/admin/mnt
 
