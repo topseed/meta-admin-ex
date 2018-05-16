@@ -1,9 +1,9 @@
-# nbake:
+
 # mount: /Users/uptim/Documents/GitHub/nbake-src/exApp1
-mount: /Users/uptim/Documents/GitHub/meta-bake-src/src2/www_admin/
+mount: /root/admin/mntA
 
 # admin www files
-srv_www: /Users/uptim/Documents/GitHub/meta-bake-src/src2/www_admin/
+srv_www:  /root/admin/www_admin
 
 secret: 123
 port: 8081
