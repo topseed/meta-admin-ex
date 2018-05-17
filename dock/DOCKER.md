@@ -2,7 +2,8 @@
 
 You can run the admin locally, by just running node of exMeta2. But it's meant for the cloud where it can be leveraged.
 
-0. You should have deployed a static 'nbake' app. - and be able to access the files via FTP.
+0. You should have deployed a static 'nbake' app. - and be able to access the files via FTP (or S3)
+Second, you should have a working example express admin app, ex: http://github.com/topseed/meta-admin-ex/tree/master/exMeta2
 
 1. Install docker on a remote host via one click install provider, or a windows provider - where you can install docker via GUO. There are two dozens hosting providers offering Docker hosting, vultr or Digital Ocean - they provide a
 one click install. You should pick a location close to your development team, and likely run two hosts: ex: LA and NYC or sports and other. Or a Webmaster can install Docker in the DMZ of your company.
@@ -58,7 +59,7 @@ You should now have a container where you can run node, for admin or any service
 			webdrive
 
 
-		// upload your admin app, ex: http://github.com/topseed/meta-admin-ex/tree/master/release
+		// upload your admin app, ex: http://github.com/topseed/meta-admin-ex/tree/master/exMeta2
 
 		// unzip the tool in /home/admin, ideally www_admin ends up in /home/admin/www_admin
 
