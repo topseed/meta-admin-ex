@@ -5,11 +5,9 @@ You can run the admin locally, by just running node of exMeta2. But it's meant f
 0. You should have deployed a static 'nbake' app. - and be able to access the files via FTP (or S3)
 Second, you should have a working example express admin app, ex: http://github.com/topseed/meta-admin-ex/tree/master/exMeta2
 
-1. Install docker on a remote host via one click install provider, or a windows provider - where you can install docker via GUO. There are two dozens hosting providers offering Docker hosting, vultr or Digital Ocean - they provide a
+1. Install docker on a remote host via one click install provider. There are two dozens hosting providers offering Docker hosting, vultr or Digital Ocean - they provide a
 one click install. You should pick a location close to your development team, and likely run two hosts: ex: LA and NYC or sports and other. Or a Webmaster can install Docker in the DMZ of your company.
-So: sign up ($5) for a host that has docker installed and connect to the host. If linux SSH, if Windows RDS.
-
-Note: Your docker admin is per app. It is not multi-tenant. For example you can have 2 dockers per app, but you can't have one docker manage two apps. That has not been tested yet - but should work.
+So: sign up ($5) for a host that has docker installed and connect to the host.
 
 
 2. Once Docker is installed, lets donwload a working container image for nbake admin:
