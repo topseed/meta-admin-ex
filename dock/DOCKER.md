@@ -68,7 +68,7 @@ You should now have a container where you can run node, for admin or any service
 
 	// use the ftp user name and address of your static site
 	( edit http://github.com/topseed/meta-admin-ex/blob/master/exMeta2/mnt.sh to be like )
-	
+
 	sshfs -o allow_other user_name@xxx.xxx.xxx.xxx:/ /home/admin/mnt
 
 	// list your app
@@ -76,11 +76,13 @@ You should now have a container where you can run node, for admin or any service
 
 	// edit admin.yaml as needed.
 
-	// follow readme.txt (npm i, node index.js)
+	// follow readme.txt (npm i, node index.js .)// . is where admin.yaml is
 
-	pm2 start index.js
+	pm2 start index.js .
 
-6.
+	// you can mount more apps
+
+5.
 
 Now in your browser go to http://YOUR-HOST-IP:8081
 That is not your app, that your admin app.
