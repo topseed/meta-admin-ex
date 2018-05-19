@@ -10,7 +10,7 @@
 		"node": ">=8.11"
 	},
 	"dependencies": {
-		"meta-admin": ">=3.05.14",
-		"formidable": "^1.2.1"
+		"formidable": "^1.2.1",
+		"meta-admin": "^3.5.18"
 	}
 }
