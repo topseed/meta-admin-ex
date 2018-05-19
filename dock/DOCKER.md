@@ -13,12 +13,11 @@ So: sign up ($5) for a host that has docker installed and connect to the host.
 2. Once Docker is installed, lets donwload a working container image for nbake admin:
 
 		// download the nbake container image
-		docker pull nbake/nbake:latest
+		docker pull nbake/meta:latest
 
 		// start that app container with ports 8080 for IDE and 8081 for admin:
-		docker run -d nbake/nbake /sbin/my_init
 
-		docker run -d --privileged -p 20-21:20-21 -p 8080-8082:8080-8082 nbake/nbake /sbin/my_init
+		docker run -d --privileged -p 20-21:20-21 -p 8080-8082:8080-8082 nbake/meta /sbin/my_init
 
 		// get the container PID
 		docker ps

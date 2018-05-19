@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 
 declare var require: any
 declare var process: any
