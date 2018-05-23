@@ -6,7 +6,13 @@ declare var console: Console
 declare var __dirname: any
 
 import { Dirs, Bake, Items, Tag, NBake } from 'nbake/lib/Base'
+
 import { Srv, FileOps } from 'meta-admin/lib/ABase'
+
+class Example extends Srv { // you could customize the scripted build - easier than gulp/grunt
+
+}
+
 
 const os = require('os')
 const fs = require('fs')
